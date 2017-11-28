@@ -1,0 +1,1171 @@
+{% extends 'layouts/app.twig' %}
+{% block title %}Results{% endblock %}
+
+{% block content %}
+{% include 'partials/off-canvas.twig' %}
+
+    <section class="sidebar">
+        <div class="sidebar__container container">
+            <div class="stats">
+                <a href="{{ path_for('home') }}"><img src="assets/img/sidebarlogo.png" alt="DarkRoast Digital Grader"></a>
+
+                <h5>Page Stats</h5>
+                <h3>Grade 
+                {% if overallGrade >= 80 %}
+                    <span class="success">A</span>
+                {% elseif overallGrade >= 70 %}
+                    <span class="success">B</span>
+                {% elseif overallGrade >= 60 %}
+                    <span class="warning">C</span>
+                {% elseif overallGrade >= 50 %}
+                    <span class="warning">D</span>
+                {% elseif overallGrade < 50 %}
+                    <span class="error">F</span>
+                {% endif %}
+                <span class="url">{{ url|replace({"http://www.": "", "http://": "", "www.": "", "https://": "", "https://www.": ""}) }}</span></h3>
+                <h5>Resource Sizes</h5>
+                <p><strong>Images:</strong> {{ imageResponseBytes }}</p>
+                <p><strong>CSS:</strong> {{ cssResponseBytes }}</p>
+                <p><strong>JavaScript:</strong> {{ jsResponseBytes }}</p>
+            </div>
+            <div class="form">
+                <h5>Grade Another</h5>
+                <form action="{{ path_for('results') }}" method="post" class="form">
+                    <input id="results-website" name="website" type="url" placeholder="http://www.example.com" required>
+                    <input id="results-submit" type="submit" name="submit" value="Get Your Answer">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-content">
+        <div class="overall" id="overall">
+            <div class="container overall__container">
+                <div class="header">
+                    <h1>{{ url|replace({"http://www.": "", "http://": "", "www.": "", "https://": "", "https://www.": ""}) }}</h1>
+                    <nav class="nav">
+                        <ul>
+                            <li><a href="#speed">Speed</a></li>
+                            <li><a href="#usability">Usability</a></li>
+                            <li><a href="#security">Security</a></li>
+                            <li><a href="#seo">SEO</a></li>
+                        </ul>
+                    </nav>
+                    {% include 'partials/hamburger.twig' %}
+                </div>
+                
+                <div class="overall__overview column-12">
+                    <h2>This Site {% if overallGrade >= 70 %}
+                            {{ headingsObj.overview.header.good }}
+                        {% elseif overallGrade >= 50 %}
+                            {{ headingsObj.overview.header.ok }}
+                        {% elseif overallGrade < 50 %}
+                            {{ headingsObj.overview.header.bad }}
+                        {% endif %}</h2>
+
+                    <h3>{% if overallGrade >= 70 %}
+                            {{ headingsObj.overview.subheader.good }}
+                        {% elseif overallGrade >= 50 %}
+                            {{ headingsObj.overview.subheader.ok }}
+                        {% elseif overallGrade < 50 %}
+                            {{ headingsObj.overview.subheader.bad }}
+                        {% endif %}</h3>
+                </div>
+
+                <div class="overall__details column-12">
+                    <div class="grade-breakdown container container--full">
+                        <div class="site-img column-5">
+                            <img src="assets/img/laptop.png" class="laptop">
+                            <div class="screenshot-container">
+                                <img src="data:{{ dMimeType }};base64,{{ dData }}" alt="Desktop view of {{ url }}" class="desktop-view">
+                            </div>
+                        </div>
+                        <div class="section-grade column-7">
+                            <h4>Speed</h4>
+                            <progress value="{{ overallSpeed }}" max="100" class="{% if overallSpeed >= 70 %}success{% elseif overallSpeed >= 50 %}warning{% elseif overallSpeed < 50 %}error{% endif %}"></progress>
+                            <p><strong>{{ overallSpeed|round }}</strong>/100</p>
+
+                            <h4>Usability</h4>
+                            <progress value="{{ mUsabilityScore }}" max="100" class="{% if mUsabilityScore >= 70 %}success{% elseif mUsabilityScore >= 50 %}warning{% elseif mUsabilityScore < 50 %}error{% endif %}"></progress>
+                            <p><strong>{{ mUsabilityScore }}</strong>/100</p>
+
+                            <h4>Security</h4>
+                            <progress value="{% if secure == "true" %}10{% elseif secure == "false" %}0{% endif %}" max="10" class="{% if secure == "true" %}success{% elseif secure == "false" %}error{% endif %}"></progress>
+                            <p><strong>{% if secure == "true" %}10{% elseif secure == "false" %}0{% endif %}</strong>/10</p>
+
+                            <h4>SEO</h4>
+                            <progress value="{{ seoScore }}" max="10" class="{% if seoScore == 10 %}success{% elseif seoScore >= 5 %}warning{% elseif seoScore < 5 %}error{% endif %}"></progress>
+                            <p><strong>{{ seoScore }}</strong>/10</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="speed" id="speed">
+            <div class="container speed__container">
+                <div class="speed__overview">
+                    <h3><span class="{% if overallSpeed >= 70 %}success{% elseif overallSpeed >= 50 %}warning{% elseif overallSpeed < 50 %}error{% endif %}">{{ overallSpeed|round }}</span>/100</h3>
+                    <progress value="{{ overallSpeed }}" max="100" class="{% if overallSpeed >= 70 %}success{% elseif overallSpeed >= 50 %}warning{% elseif overallSpeed < 50 %}error{% endif %}"></progress>
+                    <h2>Speed</h2>
+                    <p>Best-in-class webpages should load within 3 seconds. Any slower and visitors will abandon your site, reducing conversions and sales.</p>
+                </div>
+
+                <div class="speed__details container--full">
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            <div class="circle" data-progress="{{ EnableGzipCompressionPercentage|replace({"%": ""}) }}" style="--color:{% if EnableGzipCompression <= 3 %}#35D6B2{% elseif EnableGzipCompression <= 10 %}#FCC544{% elseif EnableGzipCompression > 10 %}#F91B5A{% endif %}">
+                                <div class="circleMask"></div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>Compression</h3>
+                            <h5>{% if EnableGzipCompression <= 3 %}
+                                    <span class="success">{{ headingsObj.speed.compression.good }}</span>
+                                {% elseif EnableGzipCompression <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.compression.ok }}</span>
+                                {% elseif EnableGzipCompression > 10 %}
+                                    <span class="error">{{ headingsObj.speed.compression.bad }}</span>
+                                {% endif %}</h5>
+                            {% if EnableGzipCompression != 0 %}
+                                <p>By compressing your files, you will reduce their overall size by {{ EnableGzipCompressionPercentage }} or {{ EnableGzipCompressionBytes }}.</p>
+                            {% else %}
+                                <p>No files need to be compressed. Good work!</p>
+                            {% endif %}
+                            <p>When your HTML, JavaScript, and CSS are properly compressed, it makes your website run much faster.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/EnableCompression" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            <div class="circle" data-progress="{{ OptimizeImagesPercentage|replace({"%": ""}) }}" style="--color:{% if OptimizeImages <= 3 %}#35D6B2{% elseif OptimizeImages <= 10 %}#FCC544{% elseif OptimizeImages > 10 %}#F91B5A{% endif %}">
+                                <div class="circleMask"></div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>Optimization</h3>
+                            <h5>{% if OptimizeImages <= 3 %}
+                                    <span class="success">{{ headingsObj.speed.images.good }}</span>
+                                {% elseif OptimizeImages <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.images.ok }}</span>
+                                {% elseif OptimizeImages > 10 %}
+                                    <span class="error">{{ headingsObj.speed.images.bad }}</span>
+                                {% endif %}</h5>
+                            {% if OptimizeImages != 0 %}
+                                <p>By optimizing your images, you will reduce their overall size by {{ OptimizeImagesPercentage }} or {{ OptimizeImagesBytes }}.</p>
+                            {% else %}
+                                <p>Your images are all optimized. Hooray!</p>
+                            {% endif %}
+                            <p>Properly formatting and compressing images can save many bytes of data.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/OptimizeImages" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if AvoidLandingPageRedirects == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif AvoidLandingPageRedirects <= 3 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif AvoidLandingPageRedirects > 3 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Redirects</h3>
+                            <h5>{% if AvoidLandingPageRedirects == 0 %}
+                                    <span class="success">{{ headingsObj.speed.redirects.good }}</span>
+                                {% elseif AvoidLandingPageRedirects <= 3 %}
+                                    <span class="warning">{{ headingsObj.speed.redirects.ok }}</span>
+                                {% elseif AvoidLandingPageRedirects > 3 %}
+                                    <span class="error">{{ headingsObj.speed.redirects.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Page redirects add an additional loading cycle, increasing the time to display the page.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/AvoidRedirects" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ServerResponseTime <= 3 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif ServerResponseTime <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif ServerResponseTime > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Server Response</h3>
+                            <h5>{% if ServerResponseTime <= 3 %}
+                                    <span class="success">{{ headingsObj.speed.responseTime.true }}</span>
+                                {% elseif ServerResponseTime <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.responseTime.false }}</span>
+                                {% elseif ServerResponseTime > 10 %}
+                                    <span class="error">{{ headingsObj.speed.responseTime.false }}</span>
+                                {% endif %}</h5>
+                            <p>Best in class websites have a server response time under 200ms.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/Server" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if LeverageBrowserCaching <= 3 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif LeverageBrowserCaching <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif LeverageBrowserCaching > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>Caching</h3>
+                            <h5>{% if LeverageBrowserCaching <= 3 %}
+                                    <span class="success">{{ headingsObj.speed.caching.good }}</span>
+                                {% elseif LeverageBrowserCaching <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.caching.ok }}</span>
+                                {% elseif LeverageBrowserCaching > 10 %}
+                                    <span class="error">{{ headingsObj.speed.caching.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Browser caching speeds up your website by storing frequently used content in local memory.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/Server" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            {% if RenderBlockingResources == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif RenderBlockingResources <= 3 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif RenderBlockingResources > 3 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>Render Blocking</h3>
+                            <h5>{% if RenderBlockingResources == 0 %}
+                                    <span class="success">{{ headingsObj.speed.renderBlocking.good }}</span>
+                                {% elseif RenderBlockingResources <= 3 %}
+                                    <span class="warning">{{ headingsObj.speed.renderBlocking.ok }}</span>
+                                {% elseif RenderBlockingResources > 3 %}
+                                    <span class="error">{{ headingsObj.speed.renderBlocking.bad }}</span>
+                                {% endif %}</h5>
+                            {% if numRenderBlockingResources != 0 %}
+                                <p>Your site has {{ numRenderBlockingResources }} render blocking resources:</p>
+                                <ul>
+                                    {% for resource in RenderBlockingResourcesUrls %}
+                                        <li>{{ resource["result"]["args"]["0"]["value"] }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Your site has 0 render blocking resources. Huzzah!</p>
+                            {% endif %}
+                            <p>Remove or defer JavaScript and CSS that interferes with loading above-the-fold content.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            {% if PrioritizeVisibleContent <= 3 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif PrioritizeVisibleContent <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif PrioritizeVisibleContent > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Prioritize Content</h3>
+                            <h5>{% if PrioritizeVisibleContent <= 3 %}
+                                    <span class="success">{{ headingsObj.speed.prioritize.good }}</span>
+                                {% elseif PrioritizeVisibleContent <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.prioritize.ok }}</span>
+                                {% elseif PrioritizeVisibleContent > 10 %}
+                                    <span class="error">{{ headingsObj.speed.prioritize.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Limiting the size of data needed to render the above-the-fold content will help your pages load faster.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/PrioritizeVisibleContent" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            {% if MinifyCss == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif MinifyCss <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif MinifyCss > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Minify CSS</h3>
+                            <h5>{% if MinifyCss == 0 %}
+                                    <span class="success">{{ headingsObj.speed.minifyCss.good }}</span>
+                                {% elseif MinifyCss <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.minifyCss.ok }}</span>
+                                {% elseif MinifyCss > 10 %}
+                                    <span class="error">{{ headingsObj.speed.minifyCss.bad }}</span>
+                                {% endif %}</h5>
+                            {% if MinifyCss != 0 %}
+                            <p>By minifying the following CSS resources, you will reduce their overall size by {{ MinifyCssPercentage }} or {{ MinifyCssBytes }}:</p>
+                                <ul>
+                                   {% for url in MinifyCssResults %}
+                                       <li>{{ url["result"]["args"]["0"]["value"] }}</li>
+                                   {% endfor %}
+                               </ul>
+                            {% else %}
+                                <p>You have no files to minify. Good job!</p>
+                            {% endif %}
+                            <p>Minifying your CSS resources removes unnecessary or redundant data without affecting how it is processed.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/MinifyResources" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            {% if MinifyJavaScript == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif MinifyJavaScript <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif MinifyJavaScript > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Minify JavaScript</h3>
+                            <h5>{% if MinifyJavaScript == 0 %}
+                                    <span class="success">{{ headingsObj.speed.minifyJS.good }}</span>
+                                {% elseif MinifyJavaScript <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.minifyJS.ok }}</span>
+                                {% elseif MinifyJavaScript > 10 %}
+                                    <span class="error">{{ headingsObj.speed.minifyJS.bad }}</span>
+                                {% endif %}</h5>
+                            {% if MinifyJavaScript != 0 %}
+                                <p>By minifying the following JavaScript resources, you will reduce their overall size by {{ MinifyJSPercentage }} or {{ MinifyJSBytes }}:</p>
+                                <ul>
+                                   {% for url in MinifyJSResults %}
+                                       <li>{{ url["result"]["args"]["0"]["value"] }}</li>
+                                   {% endfor %}
+                               </ul>
+                            {% else %}
+                                <p>You have no files to minify. Good job!</p>
+                            {% endif %}
+                            <p>Minifying your JavaScript resources removes unnecessary or redundant data without affecting how it is processed.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/MinifyResources" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            {% if MinifyHTML == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif MinifyHTML <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif MinifyHTML > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Minify HTML</h3>
+                            <h5>{% if MinifyHTML == 0 %}
+                                    <span class="success">{{ headingsObj.speed.minifyHTML.good }}</span>
+                                {% elseif MinifyHTML <= 10 %}
+                                    <span class="warning">{{ headingsObj.speed.minifyHTML.ok }}</span>
+                                {% elseif MinifyHTML > 10 %}
+                                    <span class="error">{{ headingsObj.speed.minifyHTML.bad }}</span>
+                                {% endif %}</h5>
+                            {% if MinifyHTML != 0 %}
+                                <p>By minifying the following HTML resources, you will reduce their overall size by {{ MinifyHTMLPercentage }} or {{ MinifyHTMLBytes }}:</p>
+                                <ul>
+                                   {% for url in MinifyHTMLResults %}
+                                       <li>{{ url["result"]["args"]["0"]["value"] }}</li>
+                                   {% endfor %}
+                               </ul>
+                            {% else %}
+                                <p>You have no files to minify. Good job!</p>
+                            {% endif %}
+                            <p>Minifying your HTML resources removes unnecessary or redundant data without affecting how it is processed.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/MinifyResources" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="graph" data-optimized="{{ optimizedArray|json_encode }}" data-unoptimized="{{ unoptimizedArray|json_encode }}">
+            <div class="graph__container container">
+                <div class="graph__overview">
+                    <h3>Optimized vs Unoptimized</h3>
+                    <p>Does optimizing images and minifying files really make that much of a difference? The graph below provides a visual representation of your current file sizes (purple) compared to the size they would be once minified/optimized (yellow).</p>
+                </div>
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+          
+
+        <div class="usability" id="usability">
+            <div class="container usability__container">
+                <div class="usability__overview">
+                    <h3><span class="{% if mUsabilityScore >= 70 %}success{% elseif mUsabilityScore >= 50 %}warning{% elseif mUsabilityScore < 50 %}error{% endif %}">{{ mUsabilityScore }}</span>/100</h3>
+                    <progress value="{{ mUsabilityScore }}" max="100" class="{% if mUsabilityScore >= 70 %}success{% elseif mUsabilityScore >= 50 %}warning{% elseif mUsabilityScore < 50 %}error{% endif %}"></progress>
+                    <h2>Usability</h2>
+                    <p>Traffic from mobile devices is growing fast. Optimize your website for mobile or you'll miss out on valuable traffic, leads, and revenue.</p>
+                </div>
+
+                <div class="usability__details container--full">
+                    <div class="mobile-img column-4">
+                        <img src="assets/img/phone.svg" class="phone">
+                        <img src="data:{{ mMimeType }};base64,{{ mData }}" class="screenshot" alt="Mobile view of {{ url }}">
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if AvoidPlugins == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif AvoidPlugins <= 3 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif AvoidPlugins > 3 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Plugins</h3>
+                            <h5>{% if AvoidPlugins == 0 %}
+                                    <span class="success">{{ headingsObj.usability.plugins.true }}</span>
+                                {% elseif AvoidPlugins <= 3 %}
+                                    <span class="warning">{{ headingsObj.usability.plugins.false }}</span>
+                                {% elseif AvoidPlugins > 3 %}
+                                    <span class="error">{{ headingsObj.usability.plugins.false }}</span>
+                                {% endif %}</h5>
+                            <p>Plugins prevent content from being usable on many platforms.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/AvoidPlugins" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ConfigureViewport == 0 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif ConfigureViewport <= 3 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif ConfigureViewport > 3 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Viewport</h3>
+                            <h5>{% if ConfigureViewport == 0 %}
+                                    <span class="success">{{ headingsObj.usability.viewport.true }}</span>
+                                {% elseif ConfigureViewport <= 3 %}
+                                    <span class="warning">{{ headingsObj.usability.viewport.false }}</span>
+                                {% elseif ConfigureViewport > 3 %}
+                                    <span class="error">{{ headingsObj.usability.viewport.false }}</span>
+                                {% endif %}</h5>
+                            <p>The viewport lets you control your page width and scale on different device types.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/ConfigureViewport" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if SizeContentToViewport <= 3 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif SizeContentToViewport <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif SizeContentToViewport > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Responsiveness</h3>
+                            <h5>{% if SizeContentToViewport <= 3 %}
+                                    <span class="success">{{ headingsObj.usability.sizeToViewport.good }}</span>
+                                {% elseif SizeContentToViewport <= 10 %}
+                                    <span class="warning">{{ headingsObj.usability.sizeToViewport.ok }}</span>
+                                {% elseif SizeContentToViewport > 10 %}
+                                    <span class="error">{{ headingsObj.usability.sizeToViewport.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Responsive design gives you a bump in search rankings for searches on mobile devices.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/SizeContentToViewport" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if SizeTapTargetsAppropriately <= 3 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif SizeTapTargetsAppropriately <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif SizeTapTargetsAppropriately > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Appropriate Tap Target Sizes</h3>
+                            <h5>{% if SizeTapTargetsAppropriately <= 3 %}
+                                    <span class="success">{{ headingsObj.usability.tapTargets.good }}</span>
+                                {% elseif SizeTapTargetsAppropriately <= 10 %}
+                                    <span class="warning">{{ headingsObj.usability.tapTargets.ok }}</span>
+                                {% elseif SizeTapTargetsAppropriately > 10 %}
+                                    <span class="error">{{ headingsObj.usability.tapTargets.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Small or tightly packed links or buttons are difficult for users to press on a touchscreen.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if UseLegibleFontSizes <= 3 %}
+                                <img src="assets/img/success.svg" alt="Rule Passed">
+                            {% elseif UseLegibleFontSizes <= 10 %}
+                                <img src="assets/img/warning.svg" alt="Warning">
+                            {% elseif UseLegibleFontSizes > 10 %}
+                                <img src="assets/img/error.svg" alt="Danger">
+                            {% endif %} 
+                        </div>
+                        <div class="content">
+                            <h3>Legible Font Sizes</h3>
+                            <h5>{% if UseLegibleFontSizes <= 3 %}
+                                    <span class="success">{{ headingsObj.usability.sizeToViewport.good }}</span>
+                                {% elseif UseLegibleFontSizes <= 10 %}
+                                    <span class="warning">{{ headingsObj.usability.sizeToViewport.ok }}</span>
+                                {% elseif UseLegibleFontSizes > 10 %}
+                                    <span class="error">{{ headingsObj.usability.sizeToViewport.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Ensure your font sizes are legible across different devices.</p>
+                            <a href="https://developers.google.com/speed/docs/insights/UseLegibleFontSizes" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="security" id="security">
+            <div class="security__container container">
+                <div class="security__overview">
+                    <h3><span class="{% if secure == "true" %}success{% elseif secure == "false" %}error{% endif %}">{% if secure == "true" %}10{% elseif secure == "false" %}0{% endif %}</span>/10</h3>
+                    <progress value="{% if secure == "true" %}10{% elseif secure == "false" %}0{% endif %}" max="10" class="{% if secure == "true" %}success{% elseif secure == "false" %}error{% endif %}"></progress>
+                    <h2>Security</h2>
+                </div>
+
+                <div class="security__details container--full">
+                    <div class="subsection column-6">
+                        <div class="graphic">
+                            {% if secure == "true" %}
+                                <img src="assets/img/key-secure.svg" alt="Secure">
+                            {% elseif secure == "false" %}
+                                <img src="assets/img/key-not-secure.svg" alt="Not Secure">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>SSL Certificate</h3>
+                            <h5>{% if secure == "true" %}
+                                    <span class="success">{{ headingsObj.security.ssl.good }}</span>
+                                {% elseif secure == "false" %}
+                                    <span class="error">{{ headingsObj.security.ssl.bad }}</span>
+                                {% endif %}</h5>
+                            <p>SSL certificates protect websites from attacks and give visitors confidence that your site is authentic and trustworthy.</p>
+                            <a href="https://developers.google.com/web/shows/cds/2013/got-ssl" target="_blank">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="seo">
+            <div class="seo__container container">
+                <div class="seo__overview">
+                    <h3><span class="{% if seoScore == 10 %}success{% elseif seoScore >= 5 %}warning{% elseif seoScore < 5 %}error{% endif %}">{{ seoScore }}</span>/10</h3>
+                    <progress value="{{ seoScore }}" max="10" class="{% if seoScore == 10 %}success{% elseif seoScore >= 5 %}warning{% elseif seoScore < 5 %}error{% endif %}"></progress>
+                    <h2>SEO</h2>
+                    <p>Make sure your website is easy for users to discover—and easy for search bots to understand—with better page titles, headings, and meta descriptions.</p>
+                </div>
+
+                <div class="seo__details container--full">
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if h1Exists == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif h1Exists == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>H1 Tag</h3>
+                            <h5>{% if h1Exists == "true" %}
+                                    <span class="success">{{ headingsObj.seo.headings.good }}</span>
+                                {% elseif h1Exists == "false" %}
+                                    <span class="error">{{ headingsObj.seo.headings.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Heading tags distinguish headings from core page content.</p>
+                            <a href="https://support.google.com/webmasters/answer/79812?hl=en" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if metaTitle == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif metaTitle == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>Meta Title</h3>
+                            <h5>{% if metaTitle == "true" %}
+                                    <span class="success">{{ headingsObj.seo.metaTitle.good }}</span>
+                                {% elseif metaTitle == "false" %}
+                                    <span class="error">{{ headingsObj.seo.metaTitle.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Page titles should be no longer than 70 characters in length and not repeat keywords.</p>
+                            <a href="https://support.google.com/webmasters/answer/35624?visit_id=1-636471462978812481-4262477549&rd=1" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if metaDesc == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif metaDesc == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>Meta Description</h3>
+                            <h5>{% if metaDesc == "true" %}
+                                    <span class="success">{{ headingsObj.seo.metaDesc.good }}</span>
+                                {% elseif metaDesc == "false" %}
+                                    <span class="error">{{ headingsObj.seo.metaDesc.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Meta descriptions should be no longer than 160 characters in length and should be relevant to the page.</p>
+                            <a href="https://support.google.com/webmasters/answer/35624?visit_id=1-636471462978812481-4262477549&rd=1" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if metaKeywords == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif metaKeywords == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>Meta Keywords</h3>
+                            <h5>{% if metaKeywords == "true" %}
+                                    <span class="success">{{ headingsObj.seo.metaKeywords.good }}</span>
+                                {% elseif metaKeywords == "false" %}
+                                    <span class="error">{{ headingsObj.seo.metaKeywords.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Meta keywords are what tell search engines what the page is about.</p>
+                            <a href="https://support.google.com/webmasters/answer/35624?visit_id=1-636471462978812481-4262477549&rd=1" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ogTitle == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif ogTitle == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>OG Title</h3>
+                            <h5>{% if ogTitle == "true" %}
+                                    <span class="success">{{ headingsObj.seo.ogTitle.good }}</span>
+                                {% elseif ogTitle == "false" %}
+                                    <span class="error">{{ headingsObj.seo.ogTitle.bad }}</span>
+                                {% endif %}</h5>
+                            <p>The Open Graph title should be the title of your page as it should appear withing the graph.</p>
+                            <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ogDesc == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif ogDesc == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>OG Description</h3>
+                            <h5>{% if ogDesc == "true" %}
+                                    <span class="success">{{ headingsObj.seo.ogDesc.good }}</span>
+                                {% elseif ogDesc == "false" %}
+                                    <span class="error">{{ headingsObj.seo.ogDesc.bad }}</span>
+                                {% endif %}</h5>
+                            <p>The Open Graph description is one or two sentences describing your page.</p>
+                            <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ogType == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif ogType == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>OG Type</h3>
+                            <h5>{% if ogType == "true" %}
+                                    <span class="success">{{ headingsObj.seo.ogType.good }}</span>
+                                {% elseif ogType == "false" %}
+                                    <span class="error">{{ headingsObj.seo.ogType.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Depending on the type you specify, other properties may also be required.</p>
+                            <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ogUrl == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif ogUrl == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>OG URL</h3>
+                            <h5>{% if ogUrl == "true" %}
+                                    <span class="success">{{ headingsObj.seo.ogUrl.good }}</span>
+                                {% elseif ogUrl == "false" %}
+                                    <span class="error">{{ headingsObj.seo.ogUrl.bad }}</span>
+                                {% endif %}</h5>
+                            <p>The URL of your object that will be used as its permanent ID in the graph.</p>
+                            <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ogSiteName == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif ogSiteName == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>OG Site Name</h3>
+                            <h5>{% if ogSiteName == "true" %}
+                                    <span class="success">{{ headingsObj.seo.ogSiteName.good }}</span>
+                                {% elseif ogSiteName == "false" %}
+                                    <span class="error">{{ headingsObj.seo.ogSiteName.bad }}</span>
+                                {% endif %}</h5>
+                            <p>If your page is part of a larger website, the site name is what will be displayed for the overall site.</p>
+                            <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if ogImage == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif ogImage == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>OG Image</h3>
+                            <h5>{% if ogImage == "true" %}
+                                    <span class="success">{{ headingsObj.seo.ogImage.good }}</span>
+                                {% elseif ogImage == "false" %}
+                                    <span class="error">{{ headingsObj.seo.ogImage.bad }}</span>
+                                {% endif %}</h5>
+                            <p>An image URL which should represent your site within the graph.</p>
+                            <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <div class="next-steps__container container">
+                <h2>What Should I Do Next?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Current</th>
+                            <th colspan="2">Recommendation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th colspan="4">Speed</th>
+                        </tr>
+                        <tr class="{% if AvoidLandingPageRedirects == 0 %}
+                                hide
+                            {% elseif AvoidLandingPageRedirects <= 3 %}
+                                show warning
+                            {% elseif AvoidLandingPageRedirects > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Redirects</td>
+                            <td><span>{% if AvoidLandingPageRedirects == 0 %}No{% elseif AvoidLandingPageRedirects > 0 %}Yes{% endif %}</span></td>
+                            <td>No</td>
+                            <td>Page redirects add an additional loading cycle, increasing the time to display the page.</td>
+                        </tr>
+
+                        <tr class="{% if EnableGzipCompression <= 3 %}
+                                hide
+                            {% elseif EnableGzipCompression <= 10 %}
+                                show warning
+                            {% elseif EnableGzipCompression > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Compression</td>
+                            <td><span>{% if EnableGzipCompression <= 3 %}Yes{% elseif EnableGzipCompression > 3 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>When your HTML, JavaScript, and CSS are properly compressed, it makes your website run much faster.</td>
+                        </tr>
+
+                        <tr class="{% if ServerResponseTime <= 3 %}
+                                hide
+                            {% elseif ServerResponseTime <= 10 %}
+                                show warning
+                            {% elseif ServerResponseTime > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Server Response</td>
+                            <td><span>{% if ServerResponseTime <= 3 %}<200ms{% elseif ServerResponseTime > 3 %}>200ms{% endif %}</span></td>
+                            <td><200ms</td>
+                            <td>Best in class websites have a server response time under 200ms.</td>
+                        </tr>
+
+                        <tr class="{% if LeverageBrowserCaching <= 3 %}
+                                hide
+                            {% elseif LeverageBrowserCaching <= 10 %}
+                                show warning
+                            {% elseif LeverageBrowserCaching > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Caching</td>
+                            <td><span>{% if LeverageBrowserCaching <= 3 %}Yes{% elseif LeverageBrowserCaching > 3 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Browser caching speeds up your website by storing frequently used content in local memory.</td>
+                        </tr>
+
+                        <tr class="{% if MinifyCss == 0 %}
+                                hide
+                            {% elseif MinifyCss <= 3 %}
+                                show warning
+                            {% elseif MinifyCss > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Minify CSS</td>
+                            <td><span>{% if MinifyCss == 0 %}Yes{% elseif MinifyCss > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Minifying your CSS resources removes unnecessary or redundant data without affecting how it is processed.</td>
+                        </tr>
+
+                        <tr class="{% if MinifyHTML == 0 %}
+                                hide
+                            {% elseif MinifyHTML <= 3 %}
+                                show warning
+                            {% elseif MinifyHTML > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Minify HTML</td>
+                            <td><span>{% if MinifyHTML == 0 %}Yes{% elseif MinifyHTML > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Minifying your HTML resources removes unnecessary or redundant data without affecting how it is processed.</td>
+                        </tr>
+
+                        <tr class="{% if MinifyJavaScript == 0 %}
+                                hide
+                            {% elseif MinifyJavaScript <= 3 %}
+                                show warning
+                            {% elseif MinifyJavaScript > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Minify JavaScript</td>
+                            <td><span>{% if MinifyJavaScript == 0 %}Yes{% elseif MinifyJavaScript > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Minifying your JavaScript resources removes unnecessary or redundant data without affecting how it is processed.</td>
+                        </tr>
+
+                        <tr class="{% if OptimizeImages == 0 %}
+                                hide
+                            {% elseif OptimizeImages <= 3 %}
+                                show warning
+                            {% elseif OptimizeImages > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Optimization</td>
+                            <td><span>{% if OptimizeImages == 0 %}Yes{% elseif OptimizeImages > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Properly formatting and compressing images can save many bytes of data.</td>
+                        </tr>
+
+                        <tr class="{% if RenderBlockingResources == 0 %}
+                                hide
+                            {% elseif RenderBlockingResources <= 3 %}
+                                show warning
+                            {% elseif RenderBlockingResources > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Render Blocking</td>
+                            <td><span>{{ numRenderBlockingResources }}</span></td>
+                            <td>0</td>
+                            <td>Remove or defer JavaScript and CSS that interferes with loading above-the-fold content.</td>
+                        </tr>
+
+                        <tr class="{% if PrioritizeVisibleContent <= 3 %}
+                                hide
+                            {% elseif PrioritizeVisibleContent <= 10 %}
+                                show warning
+                            {% elseif PrioritizeVisibleContent > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Prioritize Content</td>
+                            <td><span>{% if PrioritizeVisibleContent <= 3 %}Yes{% elseif PrioritizeVisibleContent > 3 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Limiting the size of data needed to render the above-the-fold content will help your pages load faster.</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="4">Usability</th>
+                        </tr>
+
+                        <tr class="{% if AvoidPlugins == 0 %}
+                                hide
+                            {% elseif AvoidPlugins <= 3 %}
+                                show warning
+                            {% elseif AvoidPlugins > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Plugins</td>
+                            <td><span>{% if AvoidPlugins == 0 %}No{% elseif AvoidPlugins > 0 %}Yes{% endif %}</span></td>
+                            <td>No</td>
+                            <td>Plugins prevent content from being usable on many platforms.</td>
+                        </tr>
+
+                        <tr class="{% if ConfigureViewport == 0 %}
+                                hide
+                            {% elseif ConfigureViewport > 0 %}
+                                show error
+                            {% endif %}">
+                            <td>Viewport</td>
+                            <td><span>{% if ConfigureViewport == 0 %}Yes{% elseif ConfigureViewport > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>The viewport lets you control your page width and scale on different device types.</td>
+                        </tr>
+
+                        <tr class="{% if SizeContentToViewport <= 3 %}
+                                hide
+                            {% elseif SizeContentToViewport <= 10 %}
+                                show warning
+                            {% elseif SizeContentToViewport > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Responsiveness</td>
+                            <td><span>{% if SizeContentToViewport <= 3 %}Yes{% elseif SizeContentToViewport > 3 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Responsive design gives you a bump in search rankings for searches on mobile devices.</td>
+                        </tr>
+
+                        <tr class="{% if SizeTapTargetsAppropriately <= 3 %}
+                                hide
+                            {% elseif SizeTapTargetsAppropriately <= 10 %}
+                                show warning
+                            {% elseif SizeTapTargetsAppropriately > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Appropriate Tap Target Sizes</td>
+                            <td><span>{% if SizeTapTargetsAppropriately <= 3 %}Yes{% elseif SizeTapTargetsAppropriately > 3 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Small or tightly packed links or buttons are difficult for users to press on a touchscreen.</td>
+                        </tr>
+
+                        <tr class="{% if UseLegibleFontSizes <= 3 %}
+                                hide
+                            {% elseif UseLegibleFontSizes <= 10 %}
+                                show warning
+                            {% elseif UseLegibleFontSizes > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Legible Font Sizes</td>
+                            <td><span>{% if UseLegibleFontSizes <= 3 %}Yes{% elseif UseLegibleFontSizes > 3 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Ensure your font sizes are legible across different devices.</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="4">Security</th>
+                        </tr>
+
+                        <tr class="{% if secure == "true" %}
+                                hide
+                            {% elseif secure == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>Legible Font Sizes</td>
+                            <td><span>{% if secure == "true" %}Yes{% elseif secure == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>SSL certificates protect websites from attacks and give visitors confidence that your site is authentic and trustworthy.</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="4">SEO</th>
+                        </tr>
+
+                        <tr class="{% if h1Exists == "true" %}
+                                hide
+                            {% elseif h1Exists == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>H1 Tag</td>
+                            <td><span>{% if h1Exists == "true" %}Yes{% elseif h1Exists == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Heading tags distinguish headings from core page content.</td>
+                        </tr>
+
+                        <tr class="{% if metaTitle == "true" %}
+                                hide
+                            {% elseif metaTitle == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>Meta Title</td>
+                            <td><span>{% if metaTitle == "true" %}Yes{% elseif metaTitle == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Page titles should be no longer than 70 characters in length and not repeat keywords.</td>
+                        </tr>
+
+                        <tr class="{% if metaDesc == "true" %}
+                                hide
+                            {% elseif metaDesc == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>Meta Description</td>
+                            <td><span>{% if metaDesc == "true" %}Yes{% elseif metaDesc == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Meta descriptions should be no longer than 160 characters in length and should be relevant to the page.</td>
+                        </tr>
+
+                        <tr class="{% if metaKeywords == "true" %}
+                                hide
+                            {% elseif metaKeywords == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>Meta Keywords</td>
+                            <td><span>{% if metaKeywords == "true" %}Yes{% elseif metaKeywords == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Meta keywords are what tell search engines what the page is about.</td>
+                        </tr>
+
+                        <tr class="{% if ogTitle == "true" %}
+                                hide
+                            {% elseif ogTitle == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>OG Title</td>
+                            <td><span>{% if ogTitle == "true" %}Yes{% elseif ogTitle == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>The Open Graph title should be the title of your page as it should appear withing the graph.</td>
+                        </tr>
+
+                        <tr class="{% if ogDesc == "true" %}
+                                hide
+                            {% elseif ogDesc == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>OG Description</td>
+                            <td><span>{% if ogDesc == "true" %}Yes{% elseif ogDesc == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>The Open Graph description is one or two sentences describing your page.</td>
+                        </tr>
+
+                        <tr class="{% if ogType == "true" %}
+                                hide
+                            {% elseif ogType == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>OG Type</td>
+                            <td><span>{% if ogType == "true" %}Yes{% elseif ogType == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Depending on the type you specify, other properties may also be required.</td>
+                        </tr>
+
+                        <tr class="{% if ogUrl == "true" %}
+                                hide
+                            {% elseif ogUrl == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>OG URL</td>
+                            <td><span>{% if ogUrl == "true" %}Yes{% elseif ogUrl == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>The URL of your object that will be used as its permanent ID in the graph.</td>
+                        </tr>
+
+                        <tr class="{% if ogSiteName == "true" %}
+                                hide
+                            {% elseif ogSiteName == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>OG Site Name</td>
+                            <td><span>{% if ogSiteName == "true" %}Yes{% elseif ogSiteName == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>If your page is part of a larger website, the site name is what will be displayed for the overall site.</td>
+                        </tr>
+
+                        <tr class="{% if ogImage == "true" %}
+                                hide
+                            {% elseif ogImage == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>OG Image</td>
+                            <td><span>{% if ogImage == "true" %}Yes{% elseif ogImage == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>An image URL which should represent your site within the graph.</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="cta">
+            <div class="cta__container container">
+                <!--  -->
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container footer__container">
+                <p>Visit <a href="https://darkroast.co/">darkroast.co</a></p>
+                <div class="socials">
+                    <a href="https://www.facebook.com/darkroastdigital/?fref=ts" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/darkroast.co/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    <a href="https://vimeo.com/user45999651" target="_blank"><i class="fa fa-vimeo"></i></a>
+                    <a href="https://twitter.com/DarkRoastCo" target="_blank"><i class="fa fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="loading-screen">
+        <div class="loading__container">
+            <h2>Calculating Grade</h2>
+            <h3>Please wait. This may take a few moments...</h3>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,138 @@
+{
+    "overview": {
+        "header": {
+            "good": "Is Amazing",
+            "ok": "Is OK",
+            "bad": "Could Be Better"
+        },
+        "subheader": {
+            "good": "You're amazing! Let's all bask in the glow of your amazingness. Ahhh.",
+            "ok": "Not too shabby! Now let's see how we can bump up that score a bit.",
+            "bad": "Oh dear. That is... not great. But help is on the way!"
+        }
+    },
+    "speed": {
+        "compression": {
+            "good": "Have you been working out?",
+            "ok": "It's not fat, it's fluffy.",
+            "bad": "This website needs to go on a diet."
+        },
+        "images": {
+            "good": "Optimal optimization!",
+            "ok": "These pictures need some work done.",
+            "bad": "Bytes... Bytes everywhere!"
+        },
+        "redirects": {
+            "good": "Perfect! No page redirects detected.",
+            "ok": "A few redirects. Are they all really necessary?",
+            "bad": "Whoa there. Got enough redirects?"
+        },
+        "responseTime": {
+            "true": "Zoom zoom. Nice work.",
+            "false": "Might try speeding things up a bit."
+        },
+        "caching": {
+            "good": "Wowee. Your web caching is world class.",
+            "ok": "I'll try, but I only remember bits and pieces.",
+            "bad": "I'm sorry, what were you saying?"
+        },
+        "renderBlocking": {
+            "good": "Can't ask for a much faster site than that.",
+            "ok": "Whew, I dozed off for a second there.",
+            "bad": "Time is not on your side."
+        },
+        "prioritize": {
+            "good": "The best of the best is on display.",
+            "ok": "Is your above-the-fold content absolutely the most critical?",
+            "bad": "This website needs to get its priorities checked."
+        },
+        "minifyCss": {
+            "good": "Honey, I shrunk the files!",
+            "ok": "Pretty small, but we can go even smaller.",
+            "bad": "Might be time to cut back these files' dessert intake."
+        },
+        "minifyJS": {
+            "good": "Honey, I shrunk the files!",
+            "ok": "Pretty small, but we can go even smaller.",
+            "bad": "Might be time to cut back these files' dessert intake."
+        },
+        "minifyHTML": {
+            "good": "Honey, I shrunk the files!",
+            "ok": "Pretty small, but we can go even smaller.",
+            "bad": "Might be time to cut back these files' dessert intake."
+        }
+    },
+    "usability": {
+        "plugins": {
+            "true": "Yay! No plugins found here!",
+            "false": "Plugins? We don't need no stinkin' plugins!"
+        },
+        "viewport": {
+            "true": "Now that's a good looking viewport.",
+            "false": "My kingdom for a viewport."
+        },
+        "sizeToViewport": {
+            "good": "The right size for the right device.",
+            "ok": "Not everything seems to fit right.",
+            "bad": "Oh dear. That can't be right."
+        },
+        "tapTargets": {
+            "good": "Easy to click, easy to tap.",
+            "ok": "This might take a couple of tries.",
+            "bad": "Tapping won't do you any good here."
+        },
+        "fontSize": {
+            "good": "Perfectly legible, well done!",
+            "ok": "A bit of squinting never hurt anyone.",
+            "bad": "What was it your were trying to say?"
+        }
+    },
+    "security": {
+        "ssl": {
+            "good": "Safe and secure. Nice job.",
+            "bad": "Who left the door open?"
+        }
+    },
+    "seo": {
+        "headings": {
+            "good": "Head of the class!",
+            "bad": "Heads up! There's something missing."
+        },
+        "metaTitle": {
+            "good": "Splendid page titles.",
+            "bad": "What's in a name?"
+        },
+        "metaDesc": {
+            "good": "Masterful prose.",
+            "bad": "Give it another shot!"
+        },
+        "metaKeywords": {
+            "good": "Top of the class!",
+            "bad": "What exactly is this page about?"
+        },
+        "ogTitle": {
+            "good": "Splendid.",
+            "bad": "What's in a name?"
+        },
+        "ogDesc": {
+            "good": "Masterful prose.",
+            "bad": "Maybe try that again."
+        },
+        "ogType": {
+            "good": "Oh, so that's what this is.",
+            "bad": "What is this supposed to be?"
+        },
+        "ogUrl": {
+            "good": "Easily identifiable. Wonderful!",
+            "bad": "Where am I?"
+        },
+        "ogSiteName": {
+            "good": "Nice to meet you!",
+            "bad": "This thing needs a nametag."
+        },
+        "ogImage": {
+            "good": "Beautiful. Gorgeous image.",
+            "bad": "I don't think you quite captured the page."
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{% extends 'layouts/app.twig' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <section class="home">
+        <div class="header">
+            <div class="container header__container">
+                <img src="assets/img/sidebarlogo.png" alt="DarkRoast Digital Website Grader">
+            </div>
+        </div>
+
+        <div class="main-form">
+            <div class="container main-form__container container--full">
+                <h1>How Strong Is Your Website?</h1>
+                <form action="{{ path_for('results') }}" method="post" class="form home-form">
+                    <input id="website" name="website" type="url" placeholder='Website (eg. http://www.google.ca)' required>
+                    <input id="email" name="email" type="text" placeholder="Email" required>
+                    <input id="submit" type="submit" name="submit" value="Get Your Grade Now">
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container footer__container">
+                <p>Visit <a href="https://darkroast.co/">darkroast.co</a></p>
+                <div class="socials">
+                    <a href="https://www.facebook.com/darkroastdigital/?fref=ts" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/darkroast.co/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    <a href="https://vimeo.com/user45999651" target="_blank"><i class="fa fa-vimeo"></i></a>
+                    <a href="https://twitter.com/DarkRoastCo" target="_blank"><i class="fa fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="loading-screen">
+        <div class="loading__container">
+            <h2>Calculating Grade</h2>
+            <h3>Please wait. This may take a few moments...</h3>
+            <div class="loader"></div>
+        </div>
+    </div>
+    
+{% endblock %}
