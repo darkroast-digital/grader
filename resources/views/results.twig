@@ -713,26 +713,6 @@
 
                     <div class="subsection column-4">
                         <div class="graphic">
-                            {% if ogType == "true" %}
-                                <img src="assets/img/success.svg" alt="Exists">
-                            {% elseif ogType == "false" %}
-                                <img src="assets/img/error.svg" alt="Does Not Exist">
-                            {% endif %}
-                        </div>
-                        <div class="content">
-                            <h3>OG Type</h3>
-                            <h5>{% if ogType == "true" %}
-                                    <span class="success">{{ headingsObj.seo.ogType.good }}</span>
-                                {% elseif ogType == "false" %}
-                                    <span class="error">{{ headingsObj.seo.ogType.bad }}</span>
-                                {% endif %}</h5>
-                            <p>Depending on the type you specify, other properties may also be required.</p>
-                            <a href="http://ogp.me/" target="_blank">Read More</a>
-                        </div>
-                    </div>
-
-                    <div class="subsection column-4">
-                        <div class="graphic">
                             {% if ogUrl == "true" %}
                                 <img src="assets/img/success.svg" alt="Exists">
                             {% elseif ogUrl == "false" %}
@@ -788,6 +768,26 @@
                                 {% endif %}</h5>
                             <p>An image URL which should represent your site within the graph.</p>
                             <a href="http://ogp.me/" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection column-4">
+                        <div class="graphic">
+                            {% if sitemap == "true" %}
+                                <img src="assets/img/success.svg" alt="Exists">
+                            {% elseif sitemap == "false" %}
+                                <img src="assets/img/error.svg" alt="Does Not Exist">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <h3>Sitemap</h3>
+                            <h5>{% if sitemap == "true" %}
+                                    <span class="success">{{ headingsObj.seo.sitemap.good }}</span>
+                                {% elseif sitemap == "false" %}
+                                    <span class="error">{{ headingsObj.seo.sitemap.bad }}</span>
+                                {% endif %}</h5>
+                            <p>Site maps help users navigate your site quickly and easily.</p>
+                            <a href="https://support.google.com/webmasters/answer/156184?hl=en" target="_blank">Read More</a>
                         </div>
                     </div>
 
@@ -1092,17 +1092,6 @@
                             <td>The Open Graph description is one or two sentences describing your page.</td>
                         </tr>
 
-                        <tr class="{% if ogType == "true" %}
-                                hide
-                            {% elseif ogType == "false" %}
-                                show error
-                            {% endif %}">
-                            <td>OG Type</td>
-                            <td><span>{% if ogType == "true" %}Yes{% elseif ogType == "false" %}No{% endif %}</span></td>
-                            <td>Yes</td>
-                            <td>Depending on the type you specify, other properties may also be required.</td>
-                        </tr>
-
                         <tr class="{% if ogUrl == "true" %}
                                 hide
                             {% elseif ogUrl == "false" %}
@@ -1134,6 +1123,17 @@
                             <td><span>{% if ogImage == "true" %}Yes{% elseif ogImage == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
                             <td>An image URL which should represent your site within the graph.</td>
+                        </tr>
+
+                        <tr class="{% if sitemap == "true" %}
+                                hide
+                            {% elseif sitemap == "false" %}
+                                show error
+                            {% endif %}">
+                            <td>Sitemap</td>
+                            <td><span>{% if sitemap == "true" %}Yes{% elseif sitemap == "false" %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Site maps help users navigate your site quickly and easily.</td>
                         </tr>
 
                     </tbody>

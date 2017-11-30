@@ -118,10 +118,6 @@
             "good": "Masterful prose.",
             "bad": "Maybe try that again."
         },
-        "ogType": {
-            "good": "Oh, so that's what this is.",
-            "bad": "What is this supposed to be?"
-        },
         "ogUrl": {
             "good": "Easily identifiable. Wonderful!",
             "bad": "Where am I?"
@@ -133,6 +129,10 @@
         "ogImage": {
             "good": "Beautiful. Gorgeous image.",
             "bad": "I don't think you quite captured the page."
+        },
+        "sitemap": {
+            "good": "Found it!",
+            "bad": "Hello? Where am I?"
         }
     }
 }

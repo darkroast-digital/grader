@@ -432,8 +432,6 @@ class HomeController extends Controller
               }
             }
 
-            $seoScore = 0 + $ogi + $metai;
-
             if (strpos($content, $ogdata[0]) !== false) {
                 $ogTitle = "true";
             } else {
@@ -443,11 +441,6 @@ class HomeController extends Controller
                 $ogDesc = "true";
             } else {
                 $ogDesc = "false";
-            }
-            if (strpos($content, $ogdata[2]) !== false) {
-                $ogType = "true";
-            } else {
-                $ogType = "false";
             }
             if (strpos($content, $ogdata[3]) !== false) {
                 $ogUrl = "true";
@@ -491,13 +484,24 @@ class HomeController extends Controller
               $securityScore = 0;
             }
 
+            $seoScore = 0 + $ogi + $metai;
+          
+          function hasSitemap($url) {
+              $check = get_headers($url . '/sitemap.xml');
+              return stripos($check[0], '200 OK') ? true : false;    
+          }
+
+          if (hasSitemap($url)) {
+              $sitemap = "true";
+              $seoScore += 1;
+          } else {
+              $sitemap = "false";
+          }
+
           $overallSpeed = ($mSpeedScore + $dSpeedScore)/2;
           $overallGrade = ($overallSpeed + $mUsabilityScore + (10 * $securityScore) + (10 * $seoScore))/4;
-          
 
-
-
-        return $this->view->render($response, 'results.twig', compact("headingsObj", "url", "mData", "mMimeType", "mSpeedScore", "mUsabilityScore", "AvoidPlugins", "ConfigureViewport", "SizeContentToViewport", "SizeTapTargetsAppropriately", "UseLegibleFontSizes", "dData", "dMimeType", "dSpeedScore", "AvoidLandingPageRedirects", "EnableGzipCompression", "ServerResponseTime", "LeverageBrowserCaching", "PrioritizeVisibleContent", "OptimizeImages", "MinifyCss", "MinifyCssBytes", "MinifyCssPercentage", "MinifyHTML", "MinifyHTMLPercentage", "MinifyHTMLBytes", "MinifyJSPercentage", "MinifyJSBytes", "MinifyJavaScript", "RenderBlockingResources", "numRenderBlockingResources", "RenderBlockingResourcesUrls", "MinifyCssResults", "MinifyHTMLResults", "MinifyJSResults", "overallGrade", "overallSpeed", "OptimizeImagesPercentage", "OptimizeImagesBytes", "numResources", "numHosts", "totalRequestBytes", "numStaticResources", "htmlResponseBytes", "cssResponseBytes", "imageResponseBytes", "jsResponseBytes", "otherResponseBytes", "numJsResources", "numCssResources", "EnableGzipCompressionBytes", "EnableGzipCompressionPercentage", "securityTick", "secure", "optimizedArray", "unoptimizedArray", "ogTitle", "ogDesc", "ogType", "ogUrl", "ogSiteName", "ogImage", "metaTitle", "metaDesc", "metaKeywords", "h1Exists", "seoScore"));
+        return $this->view->render($response, 'results.twig', compact("headingsObj", "url", "mData", "mMimeType", "mSpeedScore", "mUsabilityScore", "AvoidPlugins", "ConfigureViewport", "SizeContentToViewport", "SizeTapTargetsAppropriately", "UseLegibleFontSizes", "dData", "dMimeType", "dSpeedScore", "AvoidLandingPageRedirects", "EnableGzipCompression", "ServerResponseTime", "LeverageBrowserCaching", "PrioritizeVisibleContent", "OptimizeImages", "MinifyCss", "MinifyCssBytes", "MinifyCssPercentage", "MinifyHTML", "MinifyHTMLPercentage", "MinifyHTMLBytes", "MinifyJSPercentage", "MinifyJSBytes", "MinifyJavaScript", "RenderBlockingResources", "numRenderBlockingResources", "RenderBlockingResourcesUrls", "MinifyCssResults", "MinifyHTMLResults", "MinifyJSResults", "overallGrade", "overallSpeed", "OptimizeImagesPercentage", "OptimizeImagesBytes", "numResources", "numHosts", "totalRequestBytes", "numStaticResources", "htmlResponseBytes", "cssResponseBytes", "imageResponseBytes", "jsResponseBytes", "otherResponseBytes", "numJsResources", "numCssResources", "EnableGzipCompressionBytes", "EnableGzipCompressionPercentage", "securityTick", "secure", "optimizedArray", "unoptimizedArray", "ogTitle", "ogDesc", "ogUrl", "ogSiteName", "ogImage", "metaTitle", "metaDesc", "metaKeywords", "h1Exists", "seoScore", "sitemap"));
 
     }
 
