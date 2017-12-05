@@ -11,7 +11,7 @@
 
                 <h5>Page Stats</h5>
                 <h3>Grade 
-                {% if overallGrade >= 80 %}
+                {% if overallGrade >= 90 %}
                     <span class="success">A</span>
                 {% elseif overallGrade >= 70 %}
                     <span class="success">B</span>
@@ -55,18 +55,26 @@
                 </div>
                 
                 <div class="overall__overview column-12">
-                    <h2>This Site {% if overallGrade >= 70 %}
+                    <h2>This Site {% if overallGrade >= 90 %}
+                            {{ headingsObj.overview.header.great }}
+                        {% elseif overallGrade >= 70 %}
                             {{ headingsObj.overview.header.good }}
-                        {% elseif overallGrade >= 50 %}
+                        {% elseif overallGrade >= 60 %}
                             {{ headingsObj.overview.header.ok }}
+                        {% elseif overallGrade >= 50 %}
+                            {{ headingsObj.overview.header.notgood }}
                         {% elseif overallGrade < 50 %}
                             {{ headingsObj.overview.header.bad }}
                         {% endif %}</h2>
 
-                    <h3>{% if overallGrade >= 70 %}
+                    <h3>{% if overallGrade >= 90 %}
+                            {{ headingsObj.overview.subheader.great }}
+                        {% if overallGrade >= 70 %}
                             {{ headingsObj.overview.subheader.good }}
-                        {% elseif overallGrade >= 50 %}
+                        {% elseif overallGrade >= 60 %}
                             {{ headingsObj.overview.subheader.ok }}
+                        {% elseif overallGrade >= 50 %}
+                            {{ headingsObj.overview.subheader.notgood }}
                         {% elseif overallGrade < 50 %}
                             {{ headingsObj.overview.subheader.bad }}
                         {% endif %}</h3>
