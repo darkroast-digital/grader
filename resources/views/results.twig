@@ -69,7 +69,7 @@
 
                     <h3>{% if overallGrade >= 90 %}
                             {{ headingsObj.overview.subheader.great }}
-                        {% if overallGrade >= 70 %}
+                        {% elseif overallGrade >= 70 %}
                             {{ headingsObj.overview.subheader.good }}
                         {% elseif overallGrade >= 60 %}
                             {{ headingsObj.overview.subheader.ok }}
