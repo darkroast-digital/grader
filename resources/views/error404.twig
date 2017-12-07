@@ -1,0 +1,14 @@
+{% extends 'layouts/app.twig' %}
+{% block title %}Error{% endblock %}
+
+{% block content %}
+
+<section class="error-page">
+    <div class="error-page__container container">
+        <h1>Uh oh!<h1>
+        <h2>That page doesn't seem to exist.</h2>
+        <a href="{{ path_for('home') }}" class="button">Back to Home <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+    </div>
+</section>
+
+{% endblock %}

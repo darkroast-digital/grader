@@ -14,6 +14,16 @@ class HomeController extends Controller
         return $this->view->render($response, 'home.twig');
     }
 
+    public function error400($request, $response, $args)
+    {
+        return $this->view->render($response, 'error400.twig');
+    }
+
+    public function error404($request, $response, $args)
+    {
+        return $this->view->render($response, 'error404.twig');
+    }
+
     public function results($request, $response, $args) {
 
       $subheadings = file_get_contents('resources/content/subheadings.json');
@@ -399,7 +409,40 @@ class HomeController extends Controller
           $unoptimizedArray = [round($currentImageFileSize, 2), round($currentCssFileSize, 2), round($currentJSFileSize, 2), round($currentHTMLFileSize, 2)];
 
 
-            $content = file_get_contents($url);
+          function file_get_contents_curl($url) {
+              $ch = curl_init();
+
+              curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+              curl_setopt($ch, CURLOPT_HEADER, 0);
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+              curl_setopt($ch, CURLOPT_URL, $url);
+              curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);       
+
+              $data = curl_exec($ch);
+              curl_close($ch);
+
+              return $data;
+          }
+
+            $options = array(
+              'http'=>array(
+                'method'=>"GET",
+                'header'=>"Accept-language: en\r\n" .
+                          "Cookie: foo=bar\r\n" .  
+                          "User-Agent: I am a robot" 
+              )
+            );
+
+            $context = stream_context_create($options);
+            $content = file_get_contents($url, false, $context);
+
+            // try {
+            //   $content = file_get_contents($url);
+            // }
+            // catch(Exception $e) {
+            //   return $response->withRedirect($this->c->router->path_for('error400'));
+            // }
+            
             $ogdata = [
                 'og:title',
                 'og:description',
