@@ -28,7 +28,7 @@ $app = new Slim\App([
     'settings' => [
         'debug' => getenv('WHOOPS_DEBUG') === 'true',
         'whoops.editor' => 'sublime',
-        'displayErrorDetails' => getenv('APP_DEBUG') === 'true',
+        'displayErrorDetails' => 'true',
 
         'app' => [
             'name' => getenv('APP_NAME')
@@ -49,6 +49,16 @@ $app = new Slim\App([
 
     ],
 ]);
+
+$c = $app->getContainer();
+$c['phpErrorHandler'] = function ($c) {
+    return function ($request, $response, $error) use ($c) {
+        return $c['response']
+            ->withStatus(500)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Something went wrong!');
+    };
+};
 
 
 

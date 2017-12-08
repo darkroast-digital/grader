@@ -31,3 +31,13 @@ $container['view'] = function ($container) {
 };
 
 $twig = $container->view->getEnvironment();
+
+
+// #ERRORS
+// =========================================================================
+
+$container['notFoundHandler'] = function ($container) {
+    return function ($request, $response) use ($container) {
+        return $container['view']->render($response->withStatus(404), 'errors/404.twig');
+    };
+};

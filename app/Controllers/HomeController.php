@@ -36,6 +36,8 @@ class HomeController extends Controller
           $_SESSION['email'] = $email;
         } 
 
+
+
         // $mg = Mailgun::create('key-1715c074f053673f6e3c4c79e8595390');
 
         // # Now, compose and send your message.
@@ -49,7 +51,12 @@ class HomeController extends Controller
         // ]);
 
       //Mobile Code
-        $mJson = file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=mobile&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
+        $mJson = @file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=mobile&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
+
+        if ($mJson === FALSE) {
+          return $this->c->view->render($response, 'errors/400.twig');
+        }
+
         $mObj = json_decode($mJson);
 
           //For screenshot
@@ -434,19 +441,15 @@ class HomeController extends Controller
             );
 
             $context = stream_context_create($options);
-            $content = file_get_contents($url, false, $context);
+            $content = @file_get_contents($url, false, $context);
 
-            // try {
-            //   $content = file_get_contents($url);
-            // }
-            // catch(Exception $e) {
-            //   return $response->withRedirect($this->c->router->path_for('error400'));
-            // }
+            if ($content === FALSE) {
+              return $this->c->view->render($response, 'errors/400.twig');
+            }
             
             $ogdata = [
                 'og:title',
                 'og:description',
-                'og:type',
                 'og:url',
                 'og:site_name',
                 'og:image'
@@ -485,17 +488,17 @@ class HomeController extends Controller
             } else {
                 $ogDesc = "false";
             }
-            if (strpos($content, $ogdata[3]) !== false) {
+            if (strpos($content, $ogdata[2]) !== false) {
                 $ogUrl = "true";
             } else {
                 $ogUrl = "false";
             }
-            if (strpos($content, $ogdata[4]) !== false) {
+            if (strpos($content, $ogdata[3]) !== false) {
                 $ogSiteName = "true";
             } else {
                 $ogSiteName = "false";
             }
-            if (strpos($content, $ogdata[5]) !== false) {
+            if (strpos($content, $ogdata[4]) !== false) {
                 $ogImage = "true";
             } else {
                 $ogImage = "false";

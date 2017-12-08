@@ -173,21 +173,21 @@
 
                     <div class="subsection column-4">
                         <div class="graphic">
-                            {% if AvoidLandingPageRedirects == 0 %}
+                            {% if AvoidLandingPageRedirects <= 3 %}
                                 <img src="assets/img/success.svg" alt="Rule Passed">
-                            {% elseif AvoidLandingPageRedirects <= 3 %}
+                            {% elseif AvoidLandingPageRedirects <= 10 %}
                                 <img src="assets/img/warning.svg" alt="Warning">
-                            {% elseif AvoidLandingPageRedirects > 3 %}
+                            {% elseif AvoidLandingPageRedirects > 10 %}
                                 <img src="assets/img/error.svg" alt="Danger">
                             {% endif %} 
                         </div>
                         <div class="content">
                             <h3>Redirects</h3>
-                            <h5>{% if AvoidLandingPageRedirects == 0 %}
+                            <h5>{% if AvoidLandingPageRedirects <= 3 %}
                                     <span class="success">{{ headingsObj.speed.redirects.good }}</span>
-                                {% elseif AvoidLandingPageRedirects <= 3 %}
+                                {% elseif AvoidLandingPageRedirects <= 10 %}
                                     <span class="warning">{{ headingsObj.speed.redirects.ok }}</span>
-                                {% elseif AvoidLandingPageRedirects > 3 %}
+                                {% elseif AvoidLandingPageRedirects > 10 %}
                                     <span class="error">{{ headingsObj.speed.redirects.bad }}</span>
                                 {% endif %}</h5>
                             <p>Page redirects add an additional loading cycle, increasing the time to display the page.</p>
@@ -245,21 +245,21 @@
 
                     <div class="subsection column-6">
                         <div class="graphic">
-                            {% if RenderBlockingResources == 0 %}
+                            {% if RenderBlockingResources <= 3 %}
                                 <img src="assets/img/success.svg" alt="Rule Passed">
-                            {% elseif RenderBlockingResources <= 3 %}
+                            {% elseif RenderBlockingResources <= 10 %}
                                 <img src="assets/img/warning.svg" alt="Warning">
-                            {% elseif RenderBlockingResources > 3 %}
+                            {% elseif RenderBlockingResources > 10 %}
                                 <img src="assets/img/error.svg" alt="Danger">
                             {% endif %}
                         </div>
                         <div class="content">
                             <h3>Render Blocking</h3>
-                            <h5>{% if RenderBlockingResources == 0 %}
+                            <h5>{% if RenderBlockingResources <= 3 %}
                                     <span class="success">{{ headingsObj.speed.renderBlocking.good }}</span>
-                                {% elseif RenderBlockingResources <= 3 %}
+                                {% elseif RenderBlockingResources <= 10 %}
                                     <span class="warning">{{ headingsObj.speed.renderBlocking.ok }}</span>
-                                {% elseif RenderBlockingResources > 3 %}
+                                {% elseif RenderBlockingResources > 10 %}
                                     <span class="error">{{ headingsObj.speed.renderBlocking.bad }}</span>
                                 {% endif %}</h5>
                             {% if numRenderBlockingResources != 0 %}
@@ -435,21 +435,21 @@
 
                     <div class="subsection column-4">
                         <div class="graphic">
-                            {% if AvoidPlugins == 0 %}
+                            {% if AvoidPlugins <= 3 %}
                                 <img src="assets/img/success.svg" alt="Rule Passed">
-                            {% elseif AvoidPlugins <= 3 %}
+                            {% elseif AvoidPlugins <= 10 %}
                                 <img src="assets/img/warning.svg" alt="Warning">
-                            {% elseif AvoidPlugins > 3 %}
+                            {% elseif AvoidPlugins > 10 %}
                                 <img src="assets/img/error.svg" alt="Danger">
                             {% endif %} 
                         </div>
                         <div class="content">
                             <h3>Plugins</h3>
-                            <h5>{% if AvoidPlugins == 0 %}
+                            <h5>{% if AvoidPlugins <= 3 %}
                                     <span class="success">{{ headingsObj.usability.plugins.true }}</span>
-                                {% elseif AvoidPlugins <= 3 %}
+                                {% elseif AvoidPlugins <= 10 %}
                                     <span class="warning">{{ headingsObj.usability.plugins.false }}</span>
-                                {% elseif AvoidPlugins > 3 %}
+                                {% elseif AvoidPlugins > 10 %}
                                     <span class="error">{{ headingsObj.usability.plugins.false }}</span>
                                 {% endif %}</h5>
                             <p>Plugins prevent content from being usable on many platforms.</p>
@@ -818,15 +818,15 @@
                         <tr>
                             <th colspan="4">Speed</th>
                         </tr>
-                        <tr class="{% if AvoidLandingPageRedirects == 0 %}
+                        <tr class="{% if AvoidLandingPageRedirects <= 3 %}
                                 hide
-                            {% elseif AvoidLandingPageRedirects <= 3 %}
+                            {% elseif AvoidLandingPageRedirects <= 10 %}
                                 show warning
-                            {% elseif AvoidLandingPageRedirects > 3 %}
+                            {% elseif AvoidLandingPageRedirects > 10 %}
                                 show error
                             {% endif %}">
                             <td>Redirects</td>
-                            <td><span>{% if AvoidLandingPageRedirects == 0 %}No{% elseif AvoidLandingPageRedirects > 0 %}Yes{% endif %}</span></td>
+                            <td><span>{% if AvoidLandingPageRedirects <= 3 %}No{% elseif AvoidLandingPageRedirects > 3 %}Yes{% endif %}</span></td>
                             <td>No</td>
                             <td>Page redirects add an additional loading cycle, increasing the time to display the page.</td>
                         </tr>
@@ -909,9 +909,9 @@
                             <td>Minifying your JavaScript resources removes unnecessary or redundant data without affecting how it is processed.</td>
                         </tr>
 
-                        <tr class="{% if OptimizeImages == 0 %}
+                        <tr class="{% if OptimizeImages <= 3 %}
                                 hide
-                            {% elseif OptimizeImages <= 3 %}
+                            {% elseif OptimizeImages <= 10 %}
                                 show warning
                             {% elseif OptimizeImages > 10 %}
                                 show error
@@ -922,11 +922,11 @@
                             <td>Properly formatting and compressing images can save many bytes of data.</td>
                         </tr>
 
-                        <tr class="{% if RenderBlockingResources == 0 %}
+                        <tr class="{% if RenderBlockingResources <= 3 %}
                                 hide
-                            {% elseif RenderBlockingResources <= 3 %}
+                            {% elseif RenderBlockingResources <= 10 %}
                                 show warning
-                            {% elseif RenderBlockingResources > 3 %}
+                            {% elseif RenderBlockingResources > 10 %}
                                 show error
                             {% endif %}">
                             <td>Render Blocking</td>
@@ -952,11 +952,11 @@
                             <th colspan="4">Usability</th>
                         </tr>
 
-                        <tr class="{% if AvoidPlugins == 0 %}
+                        <tr class="{% if AvoidPlugins <= 3 %}
                                 hide
-                            {% elseif AvoidPlugins <= 3 %}
+                            {% elseif AvoidPlugins <= 10 %}
                                 show warning
-                            {% elseif AvoidPlugins > 3 %}
+                            {% elseif AvoidPlugins > 10 %}
                                 show error
                             {% endif %}">
                             <td>Plugins</td>
