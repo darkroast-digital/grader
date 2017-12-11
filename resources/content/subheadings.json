@@ -4,8 +4,8 @@
             "great": "Really doesn’t suck",
             "good": "Doesn't suck",
             "ok": "Is OK",
-            "notgood": "Sucks",
-            "bad": "Really Sucks"
+            "notgood": "Is Not the Best",
+            "bad": "Sucks"
         },
         "subheader": {
             "great": "This site is actually pretty awesome, not much to talk about here. Soo, how about the weather?",
@@ -19,7 +19,7 @@
         "compression": {
             "good": "Someone call a scientist. We need a microscope.",
             "ok": "Not too flabby.",
-            "bad": "Never a good sign when the site can't fit through a doorway."
+            "bad": "Your site could afford to lose a couple MBs."
         },
         "images": {
             "good": "Are you taking a performance enhancer?",
@@ -68,7 +68,7 @@
     },
     "usability": {
         "plugins": {
-            "true": "Did your website just drink coffee? It's not plugged up at all!",
+            "true": "Not too plugged up. Nice!",
             "false": "Digital constipation. All plugged up."
         },
         "viewport": {
@@ -131,7 +131,7 @@
             "bad": "Nameless is only cool if you're a Secret Agent."
         },
         "ogImage": {
-            "good": "It makes the Grand Canyon look like a popped pimple.",
+            "good": "OMG! That’s a good OG IMG.",
             "bad": "We're imagining something better."
         },
         "sitemap": {
