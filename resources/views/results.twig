@@ -116,7 +116,7 @@
                     <h3><span class="{% if overallSpeed >= 70 %}success{% elseif overallSpeed >= 50 %}warning{% elseif overallSpeed < 50 %}error{% endif %}">{{ overallSpeed|round }}</span>/100</h3>
                     <progress value="{{ overallSpeed }}" max="100" class="{% if overallSpeed >= 70 %}success{% elseif overallSpeed >= 50 %}warning{% elseif overallSpeed < 50 %}error{% endif %}"></progress>
                     <h2>Speed</h2>
-                    <p>Best-in-class webpages should load within 3 seconds. Any slower and visitors will abandon your site, reducing conversions and sales.</p>
+                    <p>Think of users as hyper-active coffee drinkers. If the site loads for longer than 3 seconds, almost all will move on...to your competitor. Say goodbye to potential clients, or say hello to more converted customers: speed isn't everything, but without it, you've got nothing.</p>
                 </div>
 
                 <div class="speed__details container--full">
@@ -137,11 +137,11 @@
                                     <span class="error">{{ headingsObj.speed.compression.bad }}</span>
                                 {% endif %}</h5>
                             {% if EnableGzipCompression != 0 %}
-                                <p>By compressing your files, you will reduce their overall size by {{ EnableGzipCompressionPercentage }} or {{ EnableGzipCompressionBytes }}.</p>
+                                <p>Shrink the competition. If you compress your files, you'll shrink the total size by around {{ EnableGzipCompressionPercentage }} or {{ EnableGzipCompressionBytes }}!</p>
                             {% else %}
-                                <p>No files need to be compressed. Good work!</p>
+                                <p>Impressive compression!</p>
                             {% endif %}
-                            <p>When your HTML, JavaScript, and CSS are properly compressed, it makes your website run much faster.</p>
+                            <p>One of the most effective ways to increase your website's speed is by compressing the HTML, JavaScript, and CSS. Make it smaller, get clients like a baller.</p>
                             <a href="https://developers.google.com/speed/docs/insights/EnableCompression" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -162,11 +162,11 @@
                                     <span class="error">{{ headingsObj.speed.images.bad }}</span>
                                 {% endif %}</h5>
                             {% if OptimizeImages != 0 %}
-                                <p>By optimizing your images, you will reduce their overall size by {{ OptimizeImagesPercentage }} or {{ OptimizeImagesBytes }}.</p>
+                                <p>No need to imagine it! With some image optimization, we foresee the total size going down to around {{ OptimizeImagesPercentage }} or {{ OptimizeImagesBytes }}!</p>
                             {% else %}
-                                <p>Your images are all optimized. Hooray!</p>
+                                <p>No need to imagine it: your image optimization is on point!</p>
                             {% endif %}
-                            <p>Properly formatting and compressing images can save many bytes of data.</p>
+                            <p>You take big bytes out of your data with some image formatting and compression.</p>
                             <a href="https://developers.google.com/speed/docs/insights/OptimizeImages" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                                 {% elseif AvoidLandingPageRedirects > 10 %}
                                     <span class="error">{{ headingsObj.speed.redirects.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Page redirects add an additional loading cycle, increasing the time to display the page.</p>
+                            <p>Zigzagging takes longer than going straight. The fewer the redirects, the fewer the loading cycles, making your page load faster.</p>
                             <a href="https://developers.google.com/speed/docs/insights/AvoidRedirects" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                                 {% elseif ServerResponseTime > 10 %}
                                     <span class="error">{{ headingsObj.speed.responseTime.false }}</span>
                                 {% endif %}</h5>
-                            <p>Best in class websites have a server response time under 200ms.</p>
+                            <p>It's easier than running the four-minute mile. A server response time should always be less than 200ms. If it's longer, it needs some caffeine.</p>
                             <a href="https://developers.google.com/speed/docs/insights/Server" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                                 {% elseif LeverageBrowserCaching > 10 %}
                                     <span class="error">{{ headingsObj.speed.caching.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Browser caching speeds up your website by storing frequently used content in local memory.</p>
+                            <p>Who doesn't like to keep things local? Keep content used often in the local memory to present it more quickly.</p>
                             <a href="https://developers.google.com/speed/docs/insights/Server" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -263,16 +263,16 @@
                                     <span class="error">{{ headingsObj.speed.renderBlocking.bad }}</span>
                                 {% endif %}</h5>
                             {% if numRenderBlockingResources != 0 %}
-                                <p>Your site has {{ numRenderBlockingResources }} render blocking resources:</p>
+                                <p>Always remember the render! With {{ numRenderBlockingResources }} render blocking resources, your site is more sluggish than it should be.</p>
                                 <ul>
                                     {% for resource in RenderBlockingResourcesUrls %}
                                         <li>{{ resource["result"]["args"]["0"]["value"] }}</li>
                                     {% endfor %}
                                 </ul>
                             {% else %}
-                                <p>Your site has 0 render blocking resources. Huzzah!</p>
+                                <p>With no render blocking resources, your site has been rendered rapidly. Rapid, I say!</p>
                             {% endif %}
-                            <p>Remove or defer JavaScript and CSS that interferes with loading above-the-fold content.</p>
+                            <p>By deferring (or removing) the interfering JavaScript and CSS, you'll eliminate the render blocking resources, rendering them nonexistent!</p>
                             <a href="https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -296,7 +296,7 @@
                                 {% elseif PrioritizeVisibleContent > 10 %}
                                     <span class="error">{{ headingsObj.speed.prioritize.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Limiting the size of data needed to render the above-the-fold content will help your pages load faster.</p>
+                            <p>The speed of your site could be improved by reducing the size of your above-the-fold content. By making it smaller, you'll make it faster. In coffee's case, bigger is better. This isn't coffee. This is content prioritizing.</p>
                             <a href="https://developers.google.com/speed/docs/insights/PrioritizeVisibleContent" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -321,16 +321,16 @@
                                     <span class="error">{{ headingsObj.speed.minifyCss.bad }}</span>
                                 {% endif %}</h5>
                             {% if MinifyCss != 0 %}
-                            <p>By minifying the following CSS resources, you will reduce their overall size by {{ MinifyCssPercentage }} or {{ MinifyCssBytes }}:</p>
+                            <p>Below are the CSS resources that can be minified. Right now, we're projecting a total size reduction of {{ MinifyCssPercentage }} or {{ MinifyCssBytes }}. Talk about shedding the pounds!</p>
                                 <ul>
                                    {% for url in MinifyCssResults %}
                                        <li>{{ url["result"]["args"]["0"]["value"] }}</li>
                                    {% endfor %}
                                </ul>
                             {% else %}
-                                <p>You have no files to minify. Good job!</p>
+                                <p>Did your files just get out of the pool? Because they're already shrunk!</p>
                             {% endif %}
-                            <p>Minifying your CSS resources removes unnecessary or redundant data without affecting how it is processed.</p>
+                            <p>Don't be weighed down by redundant or downright necessary data. CSS minifying gets rid of that extra baggage so your website can fly high.</p>
                             <a href="https://developers.google.com/speed/docs/insights/MinifyResources" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -355,16 +355,16 @@
                                     <span class="error">{{ headingsObj.speed.minifyJS.bad }}</span>
                                 {% endif %}</h5>
                             {% if MinifyJavaScript != 0 %}
-                                <p>By minifying the following JavaScript resources, you will reduce their overall size by {{ MinifyJSPercentage }} or {{ MinifyJSBytes }}:</p>
+                                <p>Flip the Script! We're seeing a potential {{ MinifyJSPercentage }} or {{ MinifyJSBytes }} size reduction if you minify these JavaScript resources.</p>
                                 <ul>
                                    {% for url in MinifyJSResults %}
                                        <li>{{ url["result"]["args"]["0"]["value"] }}</li>
                                    {% endfor %}
                                </ul>
                             {% else %}
-                                <p>You have no files to minify. Good job!</p>
+                                <p>Java so small we might as well call it EspressoScript! Nice work!</p>
                             {% endif %}
-                            <p>Minifying your JavaScript resources removes unnecessary or redundant data without affecting how it is processed.</p>
+                            <p>Large JavaScript resources can sink your website. Minify them to banish redundant or downright unnecessary data and float your way to smoother, faster sailing!</p>
                             <a href="https://developers.google.com/speed/docs/insights/MinifyResources" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -389,16 +389,16 @@
                                     <span class="error">{{ headingsObj.speed.minifyHTML.bad }}</span>
                                 {% endif %}</h5>
                             {% if MinifyHTML != 0 %}
-                                <p>By minifying the following HTML resources, you will reduce their overall size by {{ MinifyHTMLPercentage }} or {{ MinifyHTMLBytes }}:</p>
+                                <p>A {{ MinifyHTMLPercentage }} or {{ MinifyHTMLBytes }} total size reduction detected! Your HTML could be whittled down by minifying the resources listed below.</p>
                                 <ul>
                                    {% for url in MinifyHTMLResults %}
                                        <li>{{ url["result"]["args"]["0"]["value"] }}</li>
                                    {% endfor %}
                                </ul>
                             {% else %}
-                                <p>You have no files to minify. Good job!</p>
+                                <p>Your HTML is already minified! Great! (For you, that is. We drank all this coffee and now we have no resources to list.)</p>
                             {% endif %}
-                            <p>Minifying your HTML resources removes unnecessary or redundant data without affecting how it is processed.</p>
+                            <p>Cut the size, increase the speed! By minifying the HTML resources, you're slashing redundant or downright necessary data for razor precision!</p>
                             <a href="https://developers.google.com/speed/docs/insights/MinifyResources" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -411,7 +411,7 @@
             <div class="graph__container container">
                 <div class="graph__overview">
                     <h3>Optimized vs Unoptimized</h3>
-                    <p>Does optimizing images and minifying files really make that much of a difference? The graph below provides a visual representation of your current file sizes (purple) compared to the size they would be once minified/optimized (yellow).</p>
+                    <p>Knowing the difference is one thing, but seeing is always believing. Check out this graph: the purple line is your current file sizes, the yellow is the size after minifying and/or optimizing. Pretty unbelievable, right? Well, believe it, and believe this: this is what speed looks like.</p>
                 </div>
                 <canvas id="myChart"></canvas>
             </div>
@@ -424,7 +424,7 @@
                     <h3><span class="{% if mUsabilityScore >= 70 %}success{% elseif mUsabilityScore >= 50 %}warning{% elseif mUsabilityScore < 50 %}error{% endif %}">{{ mUsabilityScore }}</span>/100</h3>
                     <progress value="{{ mUsabilityScore }}" max="100" class="{% if mUsabilityScore >= 70 %}success{% elseif mUsabilityScore >= 50 %}warning{% elseif mUsabilityScore < 50 %}error{% endif %}"></progress>
                     <h2>Usability</h2>
-                    <p>Traffic from mobile devices is growing fast. Optimize your website for mobile or you'll miss out on valuable traffic, leads, and revenue.</p>
+                    <p>Since 2016, mobile internet usage is more popular than its desktop counterpart, and it's getting more dominant by the day. This makes mobile optimization absolutely crucial, from attracting first-time visitors, to retaining clients loyal since the beta days of yesteryear.</p>
                 </div>
 
                 <div class="usability__details container--full">
@@ -452,7 +452,7 @@
                                 {% elseif AvoidPlugins > 10 %}
                                     <span class="error">{{ headingsObj.usability.plugins.false }}</span>
                                 {% endif %}</h5>
-                            <p>Plugins prevent content from being usable on many platforms.</p>
+                            <p>Some plugins are unusable depending on the platform. No plugins? That means your content is usable no matter the platform. Keep your site Drano-ed.</p>
                             <a href="https://developers.google.com/speed/docs/insights/AvoidPlugins" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -476,7 +476,7 @@
                                 {% elseif ConfigureViewport > 3 %}
                                     <span class="error">{{ headingsObj.usability.viewport.false }}</span>
                                 {% endif %}</h5>
-                            <p>The viewport lets you control your page width and scale on different device types.</p>
+                            <p>There are more devices your website can be pulled up from than there are stars in the sky. It's the viewport's job to adjust width and scale no matter what device is used.</p>
                             <a href="https://developers.google.com/speed/docs/insights/ConfigureViewport" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -500,7 +500,7 @@
                                 {% elseif SizeContentToViewport > 10 %}
                                     <span class="error">{{ headingsObj.usability.sizeToViewport.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Responsive design gives you a bump in search rankings for searches on mobile devices.</p>
+                            <p>Most website traffic comes from search engines, and most website traffic is done on mobile devices. The responsiveness of your website improves your search engine ranking. It's not rocket science, but it is computer science.</p>
                             <a href="https://developers.google.com/speed/docs/insights/SizeContentToViewport" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -524,7 +524,7 @@
                                 {% elseif SizeTapTargetsAppropriately > 10 %}
                                     <span class="error">{{ headingsObj.usability.tapTargets.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Small or tightly packed links or buttons are difficult for users to press on a touchscreen.</p>
+                            <p>You put buttons and links in your website so that people will click on them. They should be easy to click on, whether it's with the click of a mouse or the tap of a fidgety thumb.</p>
                             <a href="https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -548,7 +548,7 @@
                                 {% elseif UseLegibleFontSizes > 10 %}
                                     <span class="error">{{ headingsObj.usability.sizeToViewport.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Ensure your font sizes are legible across different devices.</p>
+                            <p>Consistently sized. Legibly designed. Comfortably spaced. Get the copy across to get them cleanly to the conversion moment. And then BAM. Money.</p>
                             <a href="https://developers.google.com/speed/docs/insights/UseLegibleFontSizes" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -581,7 +581,7 @@
                                 {% elseif secure == "false" %}
                                     <span class="error">{{ headingsObj.security.ssl.bad }}</span>
                                 {% endif %}</h5>
-                            <p>SSL certificates protect websites from attacks and give visitors confidence that your site is authentic and trustworthy.</p>
+                            <p>Website operators need to worry about hackers, and users need to worry about hackers. They're very bad people who are often thwarted by SSL certificates. Plus, users enjoy seeing that you care about their security, even if you secretly don't.</p>
                             <a href="https://developers.google.com/web/shows/cds/2013/got-ssl" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -595,7 +595,7 @@
                     <h3><span class="{% if seoScore == 10 %}success{% elseif seoScore >= 5 %}warning{% elseif seoScore < 5 %}error{% endif %}">{{ seoScore }}</span>/10</h3>
                     <progress value="{{ seoScore }}" max="10" class="{% if seoScore == 10 %}success{% elseif seoScore >= 5 %}warning{% elseif seoScore < 5 %}error{% endif %}"></progress>
                     <h2>SEO</h2>
-                    <p>Make sure your website is easy for users to discover—and easy for search bots to understand—with better page titles, headings, and meta descriptions.</p>
+                    <p>Your site might make sense to a human, but it's the search bots you want to cater to. Optimizing titles, headings, content, blogs, meta descriptions, and beyond will have those bots hot to trot, which is nerd speak for: 'Pop up on the first page of Google.'</p>
                 </div>
 
                 <div class="seo__details container--full">
@@ -614,7 +614,7 @@
                                 {% elseif h1Exists == "false" %}
                                     <span class="error">{{ headingsObj.seo.headings.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Heading tags distinguish headings from core page content.</p>
+                            <p>So important. Heading tags need to distinguish the headings from what they're leading the user into, and it's the appetizer that can make or break a search bot's recommendation.</p>
                             <a href="https://support.google.com/webmasters/answer/79812?hl=en" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -634,7 +634,7 @@
                                 {% elseif metaTitle == "false" %}
                                     <span class="error">{{ headingsObj.seo.metaTitle.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Page titles should be no longer than 70 characters in length and not repeat keywords.</p>
+                            <p>70 characters or less. No repeating of keywords. Succinct but rich. Meta's well make it as perfect as possible.</p>
                             <a href="https://support.google.com/webmasters/answer/35624?visit_id=1-636471462978812481-4262477549&rd=1" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -654,7 +654,7 @@
                                 {% elseif metaDesc == "false" %}
                                     <span class="error">{{ headingsObj.seo.metaDesc.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Meta descriptions should be no longer than 160 characters in length and should be relevant to the page.</p>
+                            <p>160 characters or less. Hyper-relevant to the page it's describing. Basically, let them know how epic your website is in the most meta way possible.</p>
                             <a href="https://support.google.com/webmasters/answer/35624?visit_id=1-636471462978812481-4262477549&rd=1" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -674,7 +674,7 @@
                                 {% elseif metaKeywords == "false" %}
                                     <span class="error">{{ headingsObj.seo.metaKeywords.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Meta keywords are what tell search engines what the page is about.</p>
+                            <p>Search bots need keywords in order to know what kind of website it is. That way, they can direct users who type in similar keywords. Search bots may be unfeeling lines of code, but they sure can be helpful.</p>
                             <a href="https://support.google.com/webmasters/answer/35624?visit_id=1-636471462978812481-4262477549&rd=1" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -694,7 +694,7 @@
                                 {% elseif ogTitle == "false" %}
                                     <span class="error">{{ headingsObj.seo.ogTitle.bad }}</span>
                                 {% endif %}</h5>
-                            <p>The Open Graph title should be the title of your page as it should appear withing the graph.</p>
+                            <p>If it's not the title that you want to show up in the graph, it's not the right title.</p>
                             <a href="http://ogp.me/" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -714,7 +714,7 @@
                                 {% elseif ogDesc == "false" %}
                                     <span class="error">{{ headingsObj.seo.ogDesc.bad }}</span>
                                 {% endif %}</h5>
-                            <p>The Open Graph description is one or two sentences describing your page.</p>
+                            <p>Keep it to one, maybe two sentences, and if you feel compelled to write more than that, just remember that it's time you could be spending making more coffee.</p>
                             <a href="http://ogp.me/" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -734,7 +734,7 @@
                                 {% elseif ogUrl == "false" %}
                                     <span class="error">{{ headingsObj.seo.ogUrl.bad }}</span>
                                 {% endif %}</h5>
-                            <p>The URL of your object that will be used as its permanent ID in the graph.</p>
+                            <p>Permanent means permanent, people. That's what it'll be as the ID in the graph: permanent. Which is good if it's a good URL. So, as a professional recommendation: make it good.</p>
                             <a href="http://ogp.me/" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -754,7 +754,7 @@
                                 {% elseif ogSiteName == "false" %}
                                     <span class="error">{{ headingsObj.seo.ogSiteName.bad }}</span>
                                 {% endif %}</h5>
-                            <p>If your page is part of a larger website, the site name is what will be displayed for the overall site.</p>
+                            <p>This is the name of the general site, but it's only applicable if the page in question is one of multiple pages in a larger website. Live it, learn it, love it, then never let it go.</p>
                             <a href="http://ogp.me/" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -774,7 +774,7 @@
                                 {% elseif ogImage == "false" %}
                                     <span class="error">{{ headingsObj.seo.ogImage.bad }}</span>
                                 {% endif %}</h5>
-                            <p>An image URL which should represent your site within the graph.</p>
+                            <p>Close your eyes and imagine an image URL that represents your site. Okay, now picture within the graph. Perfect. Now all you have to do is transition that fantasy into reality.</p>
                             <a href="http://ogp.me/" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -794,7 +794,7 @@
                                 {% elseif sitemap == "false" %}
                                     <span class="error">{{ headingsObj.seo.sitemap.bad }}</span>
                                 {% endif %}</h5>
-                            <p>Site maps help users navigate your site quickly and easily.</p>
+                            <p>A good sitemap works on two levels: quick and easy navigation for both search engines and human visitors alike.</p>
                             <a href="https://support.google.com/webmasters/answer/156184?hl=en" target="_blank">Read More</a>
                         </div>
                     </div>
@@ -815,22 +815,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th colspan="4">Speed</th>
-                        </tr>
-                        <tr class="{% if AvoidLandingPageRedirects <= 3 %}
-                                hide
-                            {% elseif AvoidLandingPageRedirects <= 10 %}
-                                show warning
-                            {% elseif AvoidLandingPageRedirects > 10 %}
-                                show error
-                            {% endif %}">
-                            <td>Redirects</td>
-                            <td><span>{% if AvoidLandingPageRedirects <= 3 %}No{% elseif AvoidLandingPageRedirects > 3 %}Yes{% endif %}</span></td>
-                            <td>No</td>
-                            <td>Page redirects add an additional loading cycle, increasing the time to display the page.</td>
-                        </tr>
-
                         <tr class="{% if EnableGzipCompression <= 3 %}
                                 hide
                             {% elseif EnableGzipCompression <= 10 %}
@@ -841,7 +825,36 @@
                             <td>Compression</td>
                             <td><span>{% if EnableGzipCompression <= 3 %}Yes{% elseif EnableGzipCompression > 3 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>When your HTML, JavaScript, and CSS are properly compressed, it makes your website run much faster.</td>
+                            <td>One of the most effective ways to increase your website's speed is by compressing the HTML, JavaScript, and CSS. Make it smaller, get clients like a baller.</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="4">Speed</th>
+                        </tr>
+                        <tr class="{% if OptimizeImages <= 3 %}
+                                hide
+                            {% elseif OptimizeImages <= 10 %}
+                                show warning
+                            {% elseif OptimizeImages > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Optimization</td>
+                            <td><span>{% if OptimizeImages == 0 %}Yes{% elseif OptimizeImages > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>You take big bytes out of your data with some image formatting and compression.</td>
+                        </tr>
+
+                        <tr class="{% if AvoidLandingPageRedirects <= 3 %}
+                                hide
+                            {% elseif AvoidLandingPageRedirects <= 10 %}
+                                show warning
+                            {% elseif AvoidLandingPageRedirects > 10 %}
+                                show error
+                            {% endif %}">
+                            <td>Redirects</td>
+                            <td><span>{% if AvoidLandingPageRedirects <= 3 %}No{% elseif AvoidLandingPageRedirects > 3 %}Yes{% endif %}</span></td>
+                            <td>No</td>
+                            <td>Zigzagging takes longer than going straight. The fewer the redirects, the fewer the loading cycles, making your page load faster.</td>
                         </tr>
 
                         <tr class="{% if ServerResponseTime <= 3 %}
@@ -854,7 +867,7 @@
                             <td>Server Response</td>
                             <td><span>{% if ServerResponseTime <= 3 %}<200ms{% elseif ServerResponseTime > 3 %}>200ms{% endif %}</span></td>
                             <td><200ms</td>
-                            <td>Best in class websites have a server response time under 200ms.</td>
+                            <td>It's easier than running the four-minute mile. A server response time should always be less than 200ms. If it's longer, it needs some caffeine.</td>
                         </tr>
 
                         <tr class="{% if LeverageBrowserCaching <= 3 %}
@@ -867,59 +880,7 @@
                             <td>Caching</td>
                             <td><span>{% if LeverageBrowserCaching <= 3 %}Yes{% elseif LeverageBrowserCaching > 3 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Browser caching speeds up your website by storing frequently used content in local memory.</td>
-                        </tr>
-
-                        <tr class="{% if MinifyCss == 0 %}
-                                hide
-                            {% elseif MinifyCss <= 3 %}
-                                show warning
-                            {% elseif MinifyCss > 3 %}
-                                show error
-                            {% endif %}">
-                            <td>Minify CSS</td>
-                            <td><span>{% if MinifyCss == 0 %}Yes{% elseif MinifyCss > 0 %}No{% endif %}</span></td>
-                            <td>Yes</td>
-                            <td>Minifying your CSS resources removes unnecessary or redundant data without affecting how it is processed.</td>
-                        </tr>
-
-                        <tr class="{% if MinifyHTML == 0 %}
-                                hide
-                            {% elseif MinifyHTML <= 3 %}
-                                show warning
-                            {% elseif MinifyHTML > 3 %}
-                                show error
-                            {% endif %}">
-                            <td>Minify HTML</td>
-                            <td><span>{% if MinifyHTML == 0 %}Yes{% elseif MinifyHTML > 0 %}No{% endif %}</span></td>
-                            <td>Yes</td>
-                            <td>Minifying your HTML resources removes unnecessary or redundant data without affecting how it is processed.</td>
-                        </tr>
-
-                        <tr class="{% if MinifyJavaScript == 0 %}
-                                hide
-                            {% elseif MinifyJavaScript <= 3 %}
-                                show warning
-                            {% elseif MinifyJavaScript > 3 %}
-                                show error
-                            {% endif %}">
-                            <td>Minify JavaScript</td>
-                            <td><span>{% if MinifyJavaScript == 0 %}Yes{% elseif MinifyJavaScript > 0 %}No{% endif %}</span></td>
-                            <td>Yes</td>
-                            <td>Minifying your JavaScript resources removes unnecessary or redundant data without affecting how it is processed.</td>
-                        </tr>
-
-                        <tr class="{% if OptimizeImages <= 3 %}
-                                hide
-                            {% elseif OptimizeImages <= 10 %}
-                                show warning
-                            {% elseif OptimizeImages > 10 %}
-                                show error
-                            {% endif %}">
-                            <td>Optimization</td>
-                            <td><span>{% if OptimizeImages == 0 %}Yes{% elseif OptimizeImages > 0 %}No{% endif %}</span></td>
-                            <td>Yes</td>
-                            <td>Properly formatting and compressing images can save many bytes of data.</td>
+                            <td>Who doesn't like to keep things local? Keep content used often in the local memory to present it more quickly.</td>
                         </tr>
 
                         <tr class="{% if RenderBlockingResources <= 3 %}
@@ -932,7 +893,7 @@
                             <td>Render Blocking</td>
                             <td><span>{{ numRenderBlockingResources }}</span></td>
                             <td>0</td>
-                            <td>Remove or defer JavaScript and CSS that interferes with loading above-the-fold content.</td>
+                            <td>By deferring (or removing) the interfering JavaScript and CSS, you'll eliminate the render blocking resources, rendering them nonexistent!</td>
                         </tr>
 
                         <tr class="{% if PrioritizeVisibleContent <= 3 %}
@@ -945,7 +906,46 @@
                             <td>Prioritize Content</td>
                             <td><span>{% if PrioritizeVisibleContent <= 3 %}Yes{% elseif PrioritizeVisibleContent > 3 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Limiting the size of data needed to render the above-the-fold content will help your pages load faster.</td>
+                            <td>The speed of your site could be improved by reducing the size of your above-the-fold content. By making it smaller, you'll make it faster. In coffee's case, bigger is better. This isn't coffee. This is content prioritizing.</td>
+                        </tr>
+
+                        <tr class="{% if MinifyCss == 0 %}
+                                hide
+                            {% elseif MinifyCss <= 3 %}
+                                show warning
+                            {% elseif MinifyCss > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Minify CSS</td>
+                            <td><span>{% if MinifyCss == 0 %}Yes{% elseif MinifyCss > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Don't be weighed down by redundant or downright necessary data. CSS minifying gets rid of that extra baggage so your website can fly high.</td>
+                        </tr>
+
+                        <tr class="{% if MinifyJavaScript == 0 %}
+                                hide
+                            {% elseif MinifyJavaScript <= 3 %}
+                                show warning
+                            {% elseif MinifyJavaScript > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Minify JavaScript</td>
+                            <td><span>{% if MinifyJavaScript == 0 %}Yes{% elseif MinifyJavaScript > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Large JavaScript resources can sink your website. Minify them to banish redundant or downright necessary data and float your way to smoother, faster sailing!</td>
+                        </tr>
+
+                        <tr class="{% if MinifyHTML == 0 %}
+                                hide
+                            {% elseif MinifyHTML <= 3 %}
+                                show warning
+                            {% elseif MinifyHTML > 3 %}
+                                show error
+                            {% endif %}">
+                            <td>Minify HTML</td>
+                            <td><span>{% if MinifyHTML == 0 %}Yes{% elseif MinifyHTML > 0 %}No{% endif %}</span></td>
+                            <td>Yes</td>
+                            <td>Cut the size, increase the speed! By minifying the HTML resources, you're slashing redundant or downright necessary data for razor precision!</td>
                         </tr>
 
                         <tr>
@@ -962,7 +962,7 @@
                             <td>Plugins</td>
                             <td><span>{% if AvoidPlugins == 0 %}No{% elseif AvoidPlugins > 0 %}Yes{% endif %}</span></td>
                             <td>No</td>
-                            <td>Plugins prevent content from being usable on many platforms.</td>
+                            <td>Some plugins are unusable depending on the platform. No plugins? That means your content is usable no matter the platform. Keep your site Drano-ed.</td>
                         </tr>
 
                         <tr class="{% if ConfigureViewport == 0 %}
@@ -973,7 +973,7 @@
                             <td>Viewport</td>
                             <td><span>{% if ConfigureViewport == 0 %}Yes{% elseif ConfigureViewport > 0 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>The viewport lets you control your page width and scale on different device types.</td>
+                            <td>There are more devices your website can be pulled up from than there are stars in the sky. It's the viewport's job to adjust width and scale no matter what device is used.</td>
                         </tr>
 
                         <tr class="{% if SizeContentToViewport <= 3 %}
@@ -986,7 +986,7 @@
                             <td>Responsiveness</td>
                             <td><span>{% if SizeContentToViewport <= 3 %}Yes{% elseif SizeContentToViewport > 3 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Responsive design gives you a bump in search rankings for searches on mobile devices.</td>
+                            <td>Most website traffic comes from search engines, and most website traffic is done on mobile devices. The responsiveness of your website improves your search engine ranking. It's not rocket science, but it is computer science.</td>
                         </tr>
 
                         <tr class="{% if SizeTapTargetsAppropriately <= 3 %}
@@ -999,7 +999,7 @@
                             <td>Appropriate Tap Target Sizes</td>
                             <td><span>{% if SizeTapTargetsAppropriately <= 3 %}Yes{% elseif SizeTapTargetsAppropriately > 3 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Small or tightly packed links or buttons are difficult for users to press on a touchscreen.</td>
+                            <td>You put buttons and links in your website so that people will click on them. They should be easy to click on, whether it's with the click of a mouse or the tap of a fidgety thumb.</td>
                         </tr>
 
                         <tr class="{% if UseLegibleFontSizes <= 3 %}
@@ -1012,7 +1012,7 @@
                             <td>Legible Font Sizes</td>
                             <td><span>{% if UseLegibleFontSizes <= 3 %}Yes{% elseif UseLegibleFontSizes > 3 %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Ensure your font sizes are legible across different devices.</td>
+                            <td>Consistently sized. Legibly designed. Comfortably spaced. Get the copy across to get them cleanly to the conversion moment. And then BAM. Money.</td>
                         </tr>
 
                         <tr>
@@ -1027,7 +1027,7 @@
                             <td>Legible Font Sizes</td>
                             <td><span>{% if secure == "true" %}Yes{% elseif secure == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>SSL certificates protect websites from attacks and give visitors confidence that your site is authentic and trustworthy.</td>
+                            <td>Website operators need to worry about hackers, and users need to worry about hackers. They're very bad people who are often thwarted by SSL certificates. Plus, users enjoy seeing that you care about their security, even if you secretly don't.</td>
                         </tr>
 
                         <tr>
@@ -1042,7 +1042,7 @@
                             <td>H1 Tag</td>
                             <td><span>{% if h1Exists == "true" %}Yes{% elseif h1Exists == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Heading tags distinguish headings from core page content.</td>
+                            <td>So important. Heading tags need to distinguish the headings from what they're leading the user into, and it's the appetizer that can make or break a search bot's recommendation.</td>
                         </tr>
 
                         <tr class="{% if metaTitle == "true" %}
@@ -1053,7 +1053,7 @@
                             <td>Meta Title</td>
                             <td><span>{% if metaTitle == "true" %}Yes{% elseif metaTitle == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Page titles should be no longer than 70 characters in length and not repeat keywords.</td>
+                            <td>70 characters or less. No repeating of keywords. Succinct but rich. Meta's well make it as perfect as possible.</td>
                         </tr>
 
                         <tr class="{% if metaDesc == "true" %}
@@ -1064,7 +1064,7 @@
                             <td>Meta Description</td>
                             <td><span>{% if metaDesc == "true" %}Yes{% elseif metaDesc == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Meta descriptions should be no longer than 160 characters in length and should be relevant to the page.</td>
+                            <td>160 characters or less. Hyper-relevant to the page it's describing. Basically, let them know how epic your website is in the most meta way possible.</td>
                         </tr>
 
                         <tr class="{% if metaKeywords == "true" %}
@@ -1075,7 +1075,7 @@
                             <td>Meta Keywords</td>
                             <td><span>{% if metaKeywords == "true" %}Yes{% elseif metaKeywords == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Meta keywords are what tell search engines what the page is about.</td>
+                            <td>Search bots need keywords in order to know what kind of website it is. That way, they can direct users who type in similar keywords. Search bots may be unfeeling lines of code, but they sure can be helpful.</td>
                         </tr>
 
                         <tr class="{% if ogTitle == "true" %}
@@ -1086,7 +1086,7 @@
                             <td>OG Title</td>
                             <td><span>{% if ogTitle == "true" %}Yes{% elseif ogTitle == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>The Open Graph title should be the title of your page as it should appear withing the graph.</td>
+                            <td>If it's not the title that you want to show up in the graph, it's not the right title.</td>
                         </tr>
 
                         <tr class="{% if ogDesc == "true" %}
@@ -1097,7 +1097,7 @@
                             <td>OG Description</td>
                             <td><span>{% if ogDesc == "true" %}Yes{% elseif ogDesc == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>The Open Graph description is one or two sentences describing your page.</td>
+                            <td>Keep it to one, maybe two sentences, and if you feel compelled to write more than that, just remember that it's time you could be spending making more coffee.</td>
                         </tr>
 
                         <tr class="{% if ogUrl == "true" %}
@@ -1108,7 +1108,7 @@
                             <td>OG URL</td>
                             <td><span>{% if ogUrl == "true" %}Yes{% elseif ogUrl == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>The URL of your object that will be used as its permanent ID in the graph.</td>
+                            <td>Permanent means permanent, people. That's what it'll be as the ID in the graph: permanent. Which is good if it's a good URL. So, as a professional recommendation: make it good.</td>
                         </tr>
 
                         <tr class="{% if ogSiteName == "true" %}
@@ -1119,7 +1119,7 @@
                             <td>OG Site Name</td>
                             <td><span>{% if ogSiteName == "true" %}Yes{% elseif ogSiteName == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>If your page is part of a larger website, the site name is what will be displayed for the overall site.</td>
+                            <td>This is the name of the general site, but it's only applicable if the page in question is one of multiple pages in a larger website. Live it, learn it, love it, then never let it go.</td>
                         </tr>
 
                         <tr class="{% if ogImage == "true" %}
@@ -1130,7 +1130,7 @@
                             <td>OG Image</td>
                             <td><span>{% if ogImage == "true" %}Yes{% elseif ogImage == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>An image URL which should represent your site within the graph.</td>
+                            <td>Close your eyes and imagine an image URL that represents your site. Okay, now picture within the graph. Perfect. Now all you have to do is transition that fantasy into reality.</td>
                         </tr>
 
                         <tr class="{% if sitemap == "true" %}
@@ -1141,7 +1141,7 @@
                             <td>Sitemap</td>
                             <td><span>{% if sitemap == "true" %}Yes{% elseif sitemap == "false" %}No{% endif %}</span></td>
                             <td>Yes</td>
-                            <td>Site maps help users navigate your site quickly and easily.</td>
+                            <td>A good sitemap works on two levels: quick and easy navigation for both search engines and human visitors alike.</td>
                         </tr>
 
                     </tbody>

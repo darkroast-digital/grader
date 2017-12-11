@@ -1,142 +1,142 @@
 {
     "overview": {
         "header": {
-            "great": "Is Amazing",
-            "good": "Is Good",
+            "great": "Really doesn’t suck",
+            "good": "Doesn't suck",
             "ok": "Is OK",
-            "notgood": "Is Not Good",
-            "bad": "Could Be Better"
+            "notgood": "Sucks",
+            "bad": "Really Sucks"
         },
         "subheader": {
-            "great": "You're amazing! Let's all bask in the glow of your amazingness. Ahhh.",
-            "good": "Not too shabby! Now let's see how we can bump up that score a bit.",
-            "ok": "Well it's not bad, but it's not great, either.",
-            "notgood": "Oh dear. That is... not great. But help is on the way!",
-            "bad": "Yikes! Time for an upgrade."
+            "great": "This site is actually pretty awesome, not much to talk about here. Soo, how about the weather?",
+            "good": "Well it doesn’t suck, it’s actually pretty good but still room for improvement.",
+            "ok": "Mehh, it’s not bad. We’ve definitely seen worse but there’s a lot we could work on here.",
+            "notgood": "Yeahh, this isn’t good. Not the worst we’ve seen, but there’s a lot here to work on.",
+            "bad": "Can’t really sugar coat it. This website just plain sucks. But don’t worry, it can be fixed!"
         }
     },
     "speed": {
         "compression": {
-            "good": "Have you been working out?",
-            "ok": "It's not fat, it's fluffy.",
-            "bad": "This website needs to go on a diet."
+            "good": "Someone call a scientist. We need a microscope.",
+            "ok": "Not too flabby.",
+            "bad": "Never a good sign when the site can't fit through a doorway."
         },
         "images": {
-            "good": "Optimal optimization!",
-            "ok": "These pictures need some work done.",
-            "bad": "Bytes... Bytes everywhere!"
+            "good": "Are you taking a performance enhancer?",
+            "ok": "You should opt for better...",
+            "bad": "Beep-burp. Not optimal. Boop-beep. Does not compute well."
         },
         "redirects": {
-            "good": "Perfect! No page redirects detected.",
-            "ok": "A few redirects. Are they all really necessary?",
-            "bad": "Whoa there. Got enough redirects?"
+            "good": "Straight to the point. Nice!",
+            "ok": "No redirects is better than some redirects.",
+            "bad": "It's raining redirects up in here!"
         },
         "responseTime": {
-            "true": "Zoom zoom. Nice work.",
-            "false": "Might try speeding things up a bit."
+            "true": "The server has been drinking plenty of coffee.",
+            "false": "Your server needs some coffee. With sugar in it."
         },
         "caching": {
-            "good": "Wowee. Your web caching is world class.",
-            "ok": "I'll try, but I only remember bits and pieces.",
-            "bad": "I'm sorry, what were you saying?"
+            "good": "Cache money!",
+            "ok": "It should be better, you know, in cache you forgot.",
+            "bad": "Your site is cached out."
         },
         "renderBlocking": {
-            "good": "Can't ask for a much faster site than that.",
-            "ok": "Whew, I dozed off for a second there.",
-            "bad": "Time is not on your side."
+            "good": "No render blocks. Clear roads ahead!",
+            "ok": "You're a little blocked up...",
+            "bad": "Your website has been rendered fast-less."
         },
         "prioritize": {
-            "good": "The best of the best is on display.",
-            "ok": "Is your above-the-fold content absolutely the most critical?",
-            "bad": "This website needs to get its priorities checked."
+            "good": "Your first impression is everything!",
+            "ok": "A first impression is everything, you know...",
+            "bad": "Your first impression needs a second chance..."
         },
         "minifyCss": {
-            "good": "Honey, I shrunk the files!",
-            "ok": "Pretty small, but we can go even smaller.",
-            "bad": "Might be time to cut back these files' dessert intake."
+            "good": "Aaww. Look how small and cute they are.",
+            "ok": "Like grandma always said: \"Small and stuff ain't small enough.\"",
+            "bad": "Sorry, but the bigger, the badder. In a bad way."
         },
         "minifyJS": {
-            "good": "Honey, I shrunk the files!",
-            "ok": "Pretty small, but we can go even smaller.",
-            "bad": "Might be time to cut back these files' dessert intake."
+            "good": "With computers, small Java means more caffeine!",
+            "ok": "Normally, DarkRoast loves a big cup of Java. Not in this case.",
+            "bad": "More like Java the Hutt."
         },
         "minifyHTML": {
-            "good": "Honey, I shrunk the files!",
-            "ok": "Pretty small, but we can go even smaller.",
-            "bad": "Might be time to cut back these files' dessert intake."
+            "good": "You should teach a \"How to Minify Like (HTML) a Pro\" class!",
+            "ok": "Defy the size and minimize!",
+            "bad": "FML on your HTML."
         }
     },
     "usability": {
         "plugins": {
-            "true": "Yay! No plugins found here!",
-            "false": "Plugins? We don't need no stinkin' plugins!"
+            "true": "Did your website just drink coffee? It's not plugged up at all!",
+            "false": "Digital constipation. All plugged up."
         },
         "viewport": {
-            "true": "Now that's a good looking viewport.",
-            "false": "My kingdom for a viewport."
+            "true": "Sharon, grab the camera. The view is amazing.",
+            "false": "We have people eyes, not hawk eyes."
         },
         "sizeToViewport": {
-            "good": "The right size for the right device.",
-            "ok": "Not everything seems to fit right.",
-            "bad": "Oh dear. That can't be right."
+            "good": "You sized us up perfectly.",
+            "ok": "It's not the right fit, but it's close.",
+            "bad": "The size brings sighs."
         },
         "tapTargets": {
-            "good": "Easy to click, easy to tap.",
-            "ok": "This might take a couple of tries.",
-            "bad": "Tapping won't do you any good here."
+            "good": "Excuse us while we do a little tap dance.",
+            "ok": "Users might miss a few beats.",
+            "bad": "Don't knock the taps."
         },
         "fontSize": {
-            "good": "Perfectly legible, well done!",
-            "ok": "A bit of squinting never hurt anyone.",
-            "bad": "What was it your were trying to say?"
+            "good": "*Slowly removes glasses* \"It's...it's fantastic.\"",
+            "ok": "You're on the ledge of being legible.",
+            "bad": "Is that a lowercase 'o' or an uppercase 'W'?"
         }
     },
     "security": {
         "ssl": {
-            "good": "Safe and secure. Nice job.",
-            "bad": "Who left the door open?"
+            "good": "It's a vault beyond a fault.",
+            "bad": "Why not just lay down a Welcome mat?"
         }
     },
     "seo": {
         "headings": {
-            "good": "Head of the class!",
-            "bad": "Heads up! There's something missing."
+            "good": "Like the tall guy at a concert, you're easy to find!",
+            "bad": "They'd lose your header if it wasn't attached to your website."
         },
         "metaTitle": {
-            "good": "Splendid page titles.",
-            "bad": "What's in a name?"
+            "good": "The title of your memoir should be: 'Title'.",
+            "bad": "It's so meta, it's too meta."
         },
         "metaDesc": {
-            "good": "Masterful prose.",
-            "bad": "Give it another shot!"
+            "good": "Words can't even describe how well you described.",
+            "bad": "Describe to me again what you were thinking?"
         },
         "metaKeywords": {
-            "good": "Top of the class!",
-            "bad": "What exactly is this page about?"
+            "good": "Those keys will open a lot of doors.",
+            "bad": "This will be locked away in Google's no-man's land."
         },
         "ogTitle": {
-            "good": "Splendid.",
-            "bad": "What's in a name?"
+            "good": "That's the kind of sense that makes cents.",
+            "bad": "We'd go with something...else..."
         },
         "ogDesc": {
-            "good": "Masterful prose.",
-            "bad": "Maybe try that again."
+            "good": "Oh, genius!",
+            "bad": "Oh, geez."
         },
         "ogUrl": {
-            "good": "Easily identifiable. Wonderful!",
-            "bad": "Where am I?"
+            "good": "You're raising the bar.",
+            "bad": "Mismatch mayhem, mate."
         },
         "ogSiteName": {
-            "good": "Nice to meet you!",
-            "bad": "This thing needs a nametag."
+            "good": "We knew without asking. Perfecto.",
+            "bad": "Nameless is only cool if you're a Secret Agent."
         },
         "ogImage": {
-            "good": "Beautiful. Gorgeous image.",
-            "bad": "I don't think you quite captured the page."
+            "good": "It makes the Grand Canyon look like a popped pimple.",
+            "bad": "We're imagining something better."
         },
         "sitemap": {
-            "good": "Found it!",
-            "bad": "Hello? Where am I?"
+            "good": "We couldn't get lost if we tried!",
+            "bad": "I may need a literal map to navigate this."
         }
     }
 }
