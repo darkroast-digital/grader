@@ -33,16 +33,18 @@ class HomeController extends Controller
         $email = $request->getParam('email');
 
         if (!isset($_SESSION['email'])) {
+          $email = $request->getParam('email');
+          $_SESSION['email'] = $email;
+        } else {
           $email = $_SESSION['email'];
-        } 
-
+        }
 
 
         $mail = new PHPMailer;
         
         $subject = "DarkRoast Website Grader - A new website has been graded!";
 
-        $mail->setFrom($_SESSION['email']);
+        $mail->setFrom('hi@darkroast.co', 'DarkRoast Website Grader');
         $mail->addAddress('hi@darkroast.co', 'DarkRoast Website Grader');
         $mail->addReplyTo('hi@darkroast.co', 'DarkRoast Website Grader');
         $mail->ReturnPath='hi@darkroast.co';
@@ -50,24 +52,19 @@ class HomeController extends Controller
         $mail->isHTML(true);
 
         $body = "<p>A new website has been graded:</p>" .
-                "<p>Email: " . $_SESSION['email'] . "<br/>
+                "<p>Email: " . $email . "<br/>
                 Site Graded: ". $url . "</p>";
 
         $mail->Subject = $subject;
         $mail->Body    = $body;
         $mail->AltBody = $body;
 
-
-
-        // if(!$mail->send()) {
-        //     echo 'Message could not be sent.';
-        //     echo 'Mailer Error: ' . $mail->ErrorInfo;
-        // } else {
-        //     echo 'Success!';
-        // }
-
-
-
+        if(!$mail->send()) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            echo 'Success!';
+        }
 
       //Mobile Code
         $mJson = @file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=mobile&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
