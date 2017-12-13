@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
-use Mailgun\Mailgun;
+use PHPMailer\PHPMailer\PHPMailer;
 
 
 class HomeController extends Controller
@@ -33,22 +33,41 @@ class HomeController extends Controller
         $email = $request->getParam('email');
 
         if (!isset($_SESSION['email'])) {
-          $_SESSION['email'] = $email;
+          $email = $_SESSION['email'];
         } 
 
 
 
-        // $mg = Mailgun::create('key-1715c074f053673f6e3c4c79e8595390');
+        $mail = new PHPMailer;
+        
+        $subject = "DarkRoast Website Grader - A new website has been graded!";
 
-        // # Now, compose and send your message.
-        // # $mg->messages()->send($domain, $params);
-        // $mg->messages()->send('sandbox54da33a8b2644faebc547af411755bc1.mailgun.org', [
-        //   'from'    => $_SESSION['email'],
-        //   'to'      => 'kim@darkroast.co',
-        //   'subject' => 'New website grade',
-        //   'html'    => "Email: " . $_SESSION['email'] . "<br/>" .
-        //               "Site Graded: " . $url
-        // ]);
+        $mail->setFrom($_SESSION['email']);
+        $mail->addAddress('hi@darkroast.co', 'DarkRoast Website Grader');
+        $mail->addReplyTo('hi@darkroast.co', 'DarkRoast Website Grader');
+        $mail->ReturnPath='hi@darkroast.co';
+
+        $mail->isHTML(true);
+
+        $body = "<p>A new website has been graded:</p>" .
+                "<p>Email: " . $_SESSION['email'] . "<br/>
+                Site Graded: ". $url . "</p>";
+
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = $body;
+
+
+
+        // if(!$mail->send()) {
+        //     echo 'Message could not be sent.';
+        //     echo 'Mailer Error: ' . $mail->ErrorInfo;
+        // } else {
+        //     echo 'Success!';
+        // }
+
+
+
 
       //Mobile Code
         $mJson = @file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=mobile&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
@@ -551,9 +570,5 @@ class HomeController extends Controller
 
     }
 
-    public function post($request, $response, $args)
-    {
-        //
 
-    }
 }

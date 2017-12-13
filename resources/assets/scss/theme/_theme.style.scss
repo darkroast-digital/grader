@@ -1373,7 +1373,62 @@
 // =========================================================================
 
 .cta {
-    //
+    background:#313131;
+
+    &__container {
+
+        @media screen and (max-width:90em) {
+            padding-top:2rem;
+        }
+
+        @media screen and (max-width:64em) {
+            padding-top:3rem;
+        }
+
+        h2, p, a {
+            color:#ffffff;
+        }
+
+        img {
+            max-width:100%;
+        }
+
+        h2 {
+            text-transform:uppercase;
+            font-size:3.25rem;
+            font-weight:600;
+            margin-bottom:1rem;
+            line-height:3.5rem;
+        }
+
+        p {
+            font-size:1.25rem;
+            font-weight:600;
+        }
+
+        a {
+            font-weight:800;
+            transition:all .2s ease;
+
+            &:hover {
+                color:$primary;
+            }
+        }
+
+        .column-7 {
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+
+            @media screen and (max-width:64em) {
+                padding-bottom:3rem;
+            }
+        }
+
+        .column-5 {
+            text-align:center;
+        }
+    }
 }
 
 
