@@ -59,12 +59,12 @@ class HomeController extends Controller
         $mail->Body    = $body;
         $mail->AltBody = $body;
 
-        if(!$mail->send()) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
-        } else {
-            echo 'Success!';
-        }
+        // if(!$mail->send()) {
+        //     echo 'Message could not be sent.';
+        //     echo 'Mailer Error: ' . $mail->ErrorInfo;
+        // } else {
+        //     echo 'Success!';
+        // }
 
       //Mobile Code
         $mJson = @file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=mobile&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
@@ -102,7 +102,12 @@ class HomeController extends Controller
 
         //Desktop Code
 
-        $dJson = file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=desktop&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
+        $dJson = @file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=desktop&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
+
+        if ($dJson === FALSE) {
+          return $this->c->view->render($response, 'errors/400.twig');
+        }
+
         $dObj = json_decode($dJson);
 
           //For screenshot
@@ -561,7 +566,13 @@ class HomeController extends Controller
           }
 
           $overallSpeed = ($mSpeedScore + $dSpeedScore)/2;
-          $overallGrade = ($overallSpeed + $mUsabilityScore + (10 * $securityScore) + (10 * $seoScore))/4;
+
+          $percentSpeed = $overallSpeed / 4; //25%
+          $percentUsability = ($mUsabilityScore / 4) + ($mUsabilityScore / 10); //35%
+          $percentSecurity = $securityScore * 1.5; //15%
+          $percentSeo = $seoScore * 2.5; //25%
+
+          $overallGrade = $percentSpeed + $percentUsability + $percentSecurity + $percentSeo;
 
         return $this->view->render($response, 'results.twig', compact("headingsObj", "url", "mData", "mMimeType", "mSpeedScore", "mUsabilityScore", "AvoidPlugins", "ConfigureViewport", "SizeContentToViewport", "SizeTapTargetsAppropriately", "UseLegibleFontSizes", "dData", "dMimeType", "dSpeedScore", "AvoidLandingPageRedirects", "EnableGzipCompression", "ServerResponseTime", "LeverageBrowserCaching", "PrioritizeVisibleContent", "OptimizeImages", "MinifyCss", "MinifyCssBytes", "MinifyCssPercentage", "MinifyHTML", "MinifyHTMLPercentage", "MinifyHTMLBytes", "MinifyJSPercentage", "MinifyJSBytes", "MinifyJavaScript", "RenderBlockingResources", "numRenderBlockingResources", "RenderBlockingResourcesUrls", "MinifyCssResults", "MinifyHTMLResults", "MinifyJSResults", "overallGrade", "overallSpeed", "OptimizeImagesPercentage", "OptimizeImagesBytes", "numResources", "numHosts", "totalRequestBytes", "numStaticResources", "htmlResponseBytes", "cssResponseBytes", "imageResponseBytes", "jsResponseBytes", "otherResponseBytes", "numJsResources", "numCssResources", "EnableGzipCompressionBytes", "EnableGzipCompressionPercentage", "securityTick", "secure", "optimizedArray", "unoptimizedArray", "ogTitle", "ogDesc", "ogUrl", "ogSiteName", "ogImage", "metaTitle", "metaDesc", "metaKeywords", "h1Exists", "seoScore", "sitemap"));
 
