@@ -3,8 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
-// use PHPMailer\PHPMailer\PHPMailer;
-use Mailgun\Mailgun;
+use PHPMailer\PHPMailer\PHPMailer;
 
 
 class HomeController extends Controller
@@ -40,39 +39,25 @@ class HomeController extends Controller
           $email = $_SESSION['email'];
         }
 
-        $mg = Mailgun::create('key-1715c074f053673f6e3c4c79e8595390');
 
-        # Now, compose and send your message.
-        # $mg->messages()->send($domain, $params);
-        $mg->messages()->send('darkroast.co', [
-          'from'    => $email,
-          'to'      => 'hi@darkroast.co',
-          'subject' => "DarkRoast Website Grader - " . $url . " has been graded!",
-          'html'    => "<p>A new website has been graded:</p>" .
-                      "<p>Email: " . $email . "<br/>
-                      Site Graded: ". $url . "</p>"
-        ]);
-
- 
-
-        // $mail = new PHPMailer;
+        $mail = new PHPMailer;
         
-        // $subject = "DarkRoast Website Grader - " . $url . " has been graded!";
+        $subject = "DarkRoast Website Grader - A new website has been graded!";
 
-        // $mail->setFrom('hi@darkroast.co', 'DarkRoast Website Grader');
-        // $mail->addAddress('hi@darkroast.co', 'DarkRoast Website Grader');
-        // $mail->addReplyTo('hi@darkroast.co', 'DarkRoast Website Grader');
-        // $mail->ReturnPath='hi@darkroast.co';
+        $mail->setFrom('hi@darkroast.co', 'DarkRoast Website Grader');
+        $mail->addAddress('hi@darkroast.co', 'DarkRoast Website Grader');
+        $mail->addReplyTo('hi@darkroast.co', 'DarkRoast Website Grader');
+        $mail->ReturnPath='hi@darkroast.co';
 
-        // $mail->isHTML(true);
+        $mail->isHTML(true);
 
-        // $body = "<p>A new website has been graded:</p>" .
-        //         "<p>Email: " . $email . "<br/>
-        //         Site Graded: ". $url . "</p>";
+        $body = "<p>A new website has been graded:</p>" .
+                "<p>Email: " . $email . "<br/>
+                Site Graded: ". $url . "</p>";
 
-        // $mail->Subject = $subject;
-        // $mail->Body    = $body;
-        // $mail->AltBody = $body;
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = $body;
 
         // if(!$mail->send()) {
         //     echo 'Message could not be sent.';
