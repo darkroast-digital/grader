@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
-// use PHPMailer\PHPMailer\PHPMailer;
 use Mailgun\Mailgun;
 
 
@@ -45,41 +44,13 @@ class HomeController extends Controller
         # Now, compose and send your message.
         # $mg->messages()->send($domain, $params);
         $mg->messages()->send('darkroast.co', [
-          'from'    => $email,
+          'from'    => 'grader@darkroast.co',
           'to'      => 'hi@darkroast.co',
           'subject' => "DarkRoast Website Grader - " . $url . " has been graded!",
           'html'    => "<p>A new website has been graded:</p>" .
                       "<p>Email: " . $email . "<br/>
-                      Site Graded: ". $url . "</p>"
+                      Site Graded: " . $url . "</p>"
         ]);
-
- 
-
-        // $mail = new PHPMailer;
-        
-        // $subject = "DarkRoast Website Grader - " . $url . " has been graded!";
-
-        // $mail->setFrom('hi@darkroast.co', 'DarkRoast Website Grader');
-        // $mail->addAddress('hi@darkroast.co', 'DarkRoast Website Grader');
-        // $mail->addReplyTo('hi@darkroast.co', 'DarkRoast Website Grader');
-        // $mail->ReturnPath='hi@darkroast.co';
-
-        // $mail->isHTML(true);
-
-        // $body = "<p>A new website has been graded:</p>" .
-        //         "<p>Email: " . $email . "<br/>
-        //         Site Graded: ". $url . "</p>";
-
-        // $mail->Subject = $subject;
-        // $mail->Body    = $body;
-        // $mail->AltBody = $body;
-
-        // if(!$mail->send()) {
-        //     echo 'Message could not be sent.';
-        //     echo 'Mailer Error: ' . $mail->ErrorInfo;
-        // } else {
-        //     echo 'Success!';
-        // }
 
       //Mobile Code
         $mJson = @file_get_contents('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=' . $url . '&strategy=mobile&screenshot=true&key=AIzaSyCpKRh76fpRflQ33t6RT--FTYSh-_zZr1c');
@@ -459,7 +430,7 @@ class HomeController extends Controller
               curl_setopt($ch, CURLOPT_HEADER, 0);
               curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
               curl_setopt($ch, CURLOPT_URL, $url);
-              curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);       
+              curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);    
 
               $data = curl_exec($ch);
               curl_close($ch);
@@ -477,7 +448,7 @@ class HomeController extends Controller
             );
 
             $context = stream_context_create($options);
-            $content = @file_get_contents($url, false, $context);
+            $content = @file_get_contents_curl($url, false, $context);
 
             if ($content === FALSE) {
               return $this->c->view->render($response, 'errors/400.twig');

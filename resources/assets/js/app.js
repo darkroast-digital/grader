@@ -50,13 +50,15 @@ $("#submit").on("click", function(){
         var str = $('#website').val();
 
       if (str.indexOf("http://") >= 0 || str.indexOf("https://") >= 0) {
+        var patt = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        var str = $('#email').val();
 
-        if ($('#email').val().length > 0) {
+        if (patt.test(str) == true) {
 
             $(".loading-screen").addClass("loading");
 
         } else {
-            console.log('no email value');
+            console.log('not an email');
         }
 
       } else {
